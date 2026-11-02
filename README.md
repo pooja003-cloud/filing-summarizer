@@ -8,6 +8,10 @@ An LLM-powered pipeline that summarizes the top 5 risks in a company's 10-K, the
 
 Equity and credit analysts spend hours reading the Risk Factors section of 10-K filings, often 10,000-15,000 words per company. An LLM can summarize that in seconds, but it can also paraphrase a quote or invent a number. When the summary feeds an investment or credit decision, a single fabricated figure makes the whole output unusable, and a quote that *looks* right is the hardest error to spot by eye.
 
+This isn't hypothetical. In 2025, Deloitte Australia partially refunded a A$440,000 report to the Australian government after an academic found it contained a fabricated quote attributed to a federal judge and references to works that don't exist, produced with a GPT-4o-based tool ([TechSpot](https://www.techspot.com/news/109758-deloitte-admits-ai-hallucinated-quotes-government-report-offers.html), [OECD.AI incident record](https://oecd.ai/en/incidents/2025-10-05-be45)).
+
+**Why I built this.** In every finance role I've had, part of my job was making sure numbers matched their source before anyone relied on them: transaction reconciliation at Tata Capital, data validation at Acer. AI changes how fast analysis happens, not that rule. This project treats AI output like an unreconciled record: nothing gets used until code confirms it against the filing.
+
 ## Task
 
 Build a small pipeline that pulls Item 1A (Risk Factors) from a real 10-K on SEC EDGAR, asks an LLM for the 5 most important risks as structured JSON with a supporting quote for each, and **proves** the output is faithful to the filing.
@@ -93,6 +97,13 @@ Two companies, three isolated runs each, 6 LLM calls. Reproduce with `python run
 - **Numbers written as words** ("five") are not extracted.
 - **Small sample:** two filings, six runs, one model. Enough to show the method works, not to measure an error rate or compare models.
 - **Ranking is not evaluated.** Whether these are truly the 5 most important risks is a judgment the checker cannot make.
+
+## Related work
+
+- **Why summaries help:** Kim, Muhn and Nikolaev, [*Bloated Disclosures*](https://arxiv.org/html/2306.10224v1) (2023). GPT summaries of MD&As and earnings calls were less than half the original length, and their sentiment explained stock price reactions better than the full documents. The summaries' accuracy was not verified.
+- **Why they can't be trusted unchecked:** Islam et al., [*FinanceBench*](https://www.alphaxiv.org/abs/2311.11944v1) (2023). GPT-4-Turbo with retrieval answered incorrectly or refused 81% of sampled questions about public-company filings. Grieser et al., [*LLMs and Systematic Measurement Error*](https://www.cxoadvisory.com/investing-expertise/distortion-bias-in-llm-summaries-of-text/) (2026), study what LLMs omit from and inject into summaries of 10-K Item 1A risk disclosures, the same section used here.
+- **Closest pipeline:** Dolphin et al., [*Taxonomy-Aligned Risk Extraction from 10-K Filings*](https://arxiv.org/pdf/2601.15247) (2026), extract Item 1A risks with a supporting quote each, using an LLM judge to rate whether a quote fits its category. They don't check that quotes appear word for word in the filing, which is the gap this project addresses at small scale.
+- **Detecting hallucinations with models instead of code:** Kumar, Sarmah and Pasquali, [*FinReflectKG HalluBench*](https://arxiv.org/abs/2603.20252) (2026). The best detectors for 10-K question answering reach F1 of 0.82-0.86 but degrade sharply on noisy input. Exact string matching has no such failure mode for quotes, though it can't judge meaning.
 
 ## What AI did vs. what I did
 
