@@ -19,6 +19,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -39,6 +40,11 @@ PINNED_ACCESSIONS = {
     "HPQ": "0000047217-25-000071",  # FY ended 2025-10-31, filed 2025-12-10
     "DELL": "0001571996-26-000008",  # FY ended 2026-01-30, filed 2026-03-16
 }
+
+# Pin the model so a rerun next month uses the same one. The model actually used
+# is also read back from the reply and logged with every call.
+# Opus: the hard part is judging which risks matter, and 6 calls make the usage cost negligible.
+MODEL = "claude-opus-5-5"
 
 SEC_MIN_INTERVAL = 0.15  # seconds between requests; SEC allows max 10/second
 _last_request = 0.0
@@ -306,11 +312,16 @@ Answer with JSON only, no markdown fences and no other text, in exactly this sha
 """
 
 
-def ask_llm(prompt: str) -> str:
-    """Send a prompt to Claude and return the reply text (Decision 5).
+def ask_llm(prompt: str) -> tuple[str, dict]:
+    """Send a prompt to Claude; return (reply text, full reply envelope). Decision 5.
 
     Uses Claude Code's non-interactive mode with the Pro login. The prompt goes
     via stdin, so long sections avoid argument-length limits and shell quoting.
+    Each call is isolated so runs can't influence each other:
+      --tools ""                 no built-in tools (it can't read outputs/)
+      --strict-mcp-config        no MCP servers (no --mcp-config is given)
+      --no-session-persistence   nothing saved for later sessions
+      cwd = empty temp folder    no project files or CLAUDE.md in reach
     Switching to the paid API later means rewriting only this function.
     """
     if os.environ.get("ANTHROPIC_API_KEY"):
@@ -319,11 +330,12 @@ def ask_llm(prompt: str) -> str:
     if shutil.which("claude") is None:
         sys.exit("The 'claude' command was not found. Install Claude Code and log in first.")
 
+    cmd = ["claude", "-p", "--output-format", "json", "--model", MODEL,
+           "--tools", "", "--strict-mcp-config", "--no-session-persistence"]
     started = time.monotonic()
-    proc = subprocess.run(
-        ["claude", "-p", "--output-format", "json"],
-        input=prompt, capture_output=True, text=True, encoding="utf-8", timeout=900,
-    )
+    with tempfile.TemporaryDirectory(prefix="filing-summarizer-") as empty_dir:
+        proc = subprocess.run(cmd, input=prompt, capture_output=True, text=True,
+                              encoding="utf-8", timeout=900, cwd=empty_dir)
     elapsed = time.monotonic() - started
     if proc.returncode != 0:
         sys.exit(f"claude exited with code {proc.returncode}:\n{proc.stderr.strip()}")
@@ -336,10 +348,14 @@ def ask_llm(prompt: str) -> str:
     # Claude Code reports most input under cache fields, so add them up.
     input_total = sum(usage.get(k) or 0 for k in
                       ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens"))
-    log(f"LLM call: {elapsed:.0f}s, input tokens {input_total:,} "
-        f"(cache read {usage.get('cache_read_input_tokens') or 0:,}), "
+    models_used = sorted((envelope.get("modelUsage") or {}).keys()) or ["not reported"]
+    log(f"LLM call: {elapsed:.0f}s, model requested {MODEL}, used {', '.join(models_used)}, "
+        f"turns {envelope.get('num_turns', '?')}")
+    log(f"          input tokens {input_total:,} (cache read {usage.get('cache_read_input_tokens') or 0:,}), "
         f"output tokens {usage.get('output_tokens') or 0:,}")
-    return envelope["result"]
+    if envelope.get("num_turns", 1) != 1:
+        log("WARNING: more than one turn. The model should answer directly with tools off.")
+    return envelope["result"], envelope
 
 
 def parse_model_json(reply: str) -> dict:
@@ -388,7 +404,7 @@ def main() -> None:
 
     ticker = args.ticker.upper()
     OUT_DIR.mkdir(exist_ok=True)
-    log(f"=== summarize.py {ticker} run {args.run} - {dt.datetime.now():%Y-%m-%d %H:%M} ===")
+    log(f"=== summarize.py {ticker} run {args.run} - {dt.datetime.now().astimezone():%Y-%m-%d %H:%M %Z} ===")
 
     if args.html_file:
         html = args.html_file.read_text(encoding="utf-8")
@@ -445,9 +461,12 @@ def main() -> None:
     # ---- LLM call (Decisions 5-7)
     prompt = PROMPT_TEMPLATE.format(company=meta["company"], report_date=meta["report_date"],
                                     section=section_text)
-    reply = ask_llm(prompt)
+    reply, envelope = ask_llm(prompt)
     raw_path = OUT_DIR / f"raw_reply_{ticker}_run{args.run}.txt"
     raw_path.write_text(reply, encoding="utf-8")
+    # Full envelope: model, turns, usage, session id. Evidence the call was isolated.
+    (OUT_DIR / f"llm_envelope_{ticker}_run{args.run}.json").write_text(
+        json.dumps(envelope, indent=2, ensure_ascii=False), encoding="utf-8")
     try:
         result = parse_model_json(reply)
     except json.JSONDecodeError as e:
@@ -455,11 +474,11 @@ def main() -> None:
         save_log(OUT_DIR / "run_output.txt")
         sys.exit(1)
 
-    result["_meta"] = meta
+    result["_meta"] = {**meta, "model_requested": MODEL,
+                       "models_used": sorted((envelope.get("modelUsage") or {}).keys())}
     (OUT_DIR / f"summary_{ticker}_run{args.run}.json").write_text(
         json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
-    write_markdown(OUT_DIR / f"summary_{ticker}.md" if args.run == 1
-                   else OUT_DIR / f"summary_{ticker}_run{args.run}.md", meta, result)
+    write_markdown(OUT_DIR / f"summary_{ticker}_run{args.run}.md", meta, result)
     log(f"Model returned {len(result.get('risks', []))} risks. "
         f"Saved outputs/summary_{ticker}_run{args.run}.json. Next: python check.py {ticker}")
     save_log(OUT_DIR / "run_output.txt")

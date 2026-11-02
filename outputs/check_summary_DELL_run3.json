@@ -4,8 +4,8 @@
     "quotes_verified": 5,
     "distinct_risk_factors": 5,
     "quotes_total": 5,
-    "numbers_total": 7,
-    "verified": 7,
+    "numbers_total": 5,
+    "verified": 5,
     "needs review": 0,
     "not in source": 0
   },
@@ -13,7 +13,7 @@
   "risks": [
     {
       "rank": 1,
-      "title": "AI revenue concentrated in few large customers, straining margins and cash",
+      "title": "AI demand concentrated in few large customers, straining margins and cash",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -24,7 +24,7 @@
     },
     {
       "rank": 2,
-      "title": "Dependence on vendors and concentrated contract manufacturers with minimal inventory",
+      "title": "Component shortages, cost inflation and reliance on concentrated suppliers",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -35,7 +35,7 @@
     },
     {
       "rank": 3,
-      "title": "Large debt load reduces cash flow and financial flexibility",
+      "title": "Substantial indebtedness and capacity to borrow more",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -46,16 +46,6 @@
         {
           "field": "why_it_matters",
           "number": "$31.5 billion",
-          "outcome": "verified"
-        },
-        {
-          "field": "why_it_matters",
-          "number": "$5.0 billion",
-          "outcome": "verified"
-        },
-        {
-          "field": "why_it_matters",
-          "number": "$5.9 billion",
           "outcome": "verified"
         },
         {
@@ -77,31 +67,31 @@
     },
     {
       "rank": 4,
-      "title": "Competition in ISG from cloud providers and a structurally weak PC market",
+      "title": "Tariffs, trade disputes and protectionism raising costs and limiting sales",
       "quote": {
         "verified": true,
         "ellipsis": false,
-        "paragraph": 11,
-        "risk_heading": "The operating results of our business units may be adversely affected if we fail to successfully execute our strategy and related initiatives."
-      },
-      "numbers": []
-    },
-    {
-      "rank": 5,
-      "title": "Controlling shareholders limit minority investor influence and governance protections",
-      "quote": {
-        "verified": true,
-        "ellipsis": false,
-        "paragraph": 104,
-        "risk_heading": "We are controlled by the MD stockholders, who, separately and together with the SLP stockholders, collectively own common stock with a majority of the voting power of all our outstanding series of common stock and are able to effectively control our actions, including approval of mergers and other significant corporate transactions."
+        "paragraph": 5,
+        "risk_heading": "Adverse global economic conditions may harm our business and result in reduced net revenue and profitability."
       },
       "numbers": [
         {
           "field": "why_it_matters",
-          "number": "91.7%",
+          "number": "45%",
           "outcome": "verified"
         }
       ]
+    },
+    {
+      "rank": 5,
+      "title": "Structural PC market decline pressuring CSG revenue and overhead absorption",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 12,
+        "risk_heading": "The operating results of our business units may be adversely affected if we fail to successfully execute our strategy and related initiatives."
+      },
+      "numbers": []
     }
   ]
 }

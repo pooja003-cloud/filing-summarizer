@@ -2,32 +2,32 @@
   "risks": [
     {
       "rank": 1,
-      "title": "Tariffs and trade restrictions squeezing costs and margins",
-      "why_it_matters": "New tariffs have already raised HP's costs, and its pricing and other actions have not fully offset them. Because about 65% of net revenue came from outside the United States and its supply chain is concentrated in Asia, sustained or retaliatory tariffs could significantly hurt earnings and cash flow.",
-      "exact_quote": "As a result, during fiscal 2025, we experienced higher commodity and tariff costs, which were not fully mitigated by pricing and other actions enacted during the period."
+      "title": "Secular decline in printing demand and supplies profitability",
+      "why_it_matters": "Printing, especially high-margin ink cartridge supplies, is a key profit and cash flow engine. Digitization, hybrid work, generic supplies and the shift to big tank printers erode recurring supplies revenue and lifetime device profitability.",
+      "exact_quote": "decreased demand for printing products and solutions as a result of increased digitization, hybrid work, increasing competition from generic alternatives and customer preferences shifting from traditional disposable ink cartridge printers to refillable big tank printers."
     },
     {
       "rank": 2,
-      "title": "Long-term decline in printing demand and loss of supplies profits",
-      "why_it_matters": "Print supplies have historically been a major source of profit, and demand is falling because of digitization, hybrid work and cheaper generic supplies. Customers are also moving to big tank printers, which earn less over the life of the device, putting a key source of cash flow at risk.",
-      "exact_quote": "we believe we and others in our industry face continuing secular challenges related to, among other things, decreased demand for printing products and solutions as a result of increased digitization, hybrid work, increasing competition from generic alternatives"
+      "title": "Tariffs and trade restrictions raising costs and squeezing margins",
+      "why_it_matters": "New, substantial U.S. tariffs and retaliatory measures have already raised costs that pricing actions did not fully offset. Sustained tariffs could significantly hurt results of operations and cash flows while costly supply chain shifts take time to deliver benefits.",
+      "exact_quote": "As a result, during fiscal 2025, we experienced higher commodity and tariff costs, which were not fully mitigated by pricing and other actions enacted during the period."
     },
     {
       "rank": 3,
-      "title": "Rising memory and component costs cutting Personal Systems margins",
-      "why_it_matters": "Rising memory and storage costs, together with competitive pricing, directly reduce gross margins in the PC business, and HP may not be able to pass these costs on to customers. This puts near-term earnings at risk.",
-      "exact_quote": "gross margin declines in certain businesses, reflecting the effect of competitive pricing pressures and increases in component and manufacturing costs, resulting from market dynamics, especially increasing memory and storage costs and potential supply chain constraints in our Personal Systems business"
+      "title": "Rising memory, storage and component costs in Personal Systems",
+      "why_it_matters": "Personal Systems runs on thin margins and depends heavily on outsourced manufacturers and single-source processor suppliers. Inflation in memory and storage costs that cannot be passed through directly compresses gross margin and cash generation.",
+      "exact_quote": "increases in component and manufacturing costs, resulting from market dynamics, especially increasing memory and storage costs and potential supply chain constraints in our Personal Systems business, and higher labor and material costs borne by our manufacturers and suppliers that we are unable to pass on to our customers."
     },
     {
       "rank": 4,
-      "title": "AI product shift may not pay off and may cannibalize sales",
-      "why_it_matters": "HP is spending heavily on AI-enabled products, but it may not earn back that investment. Sales of AI products could also replace sales of its traditional products, which could lower revenue and margins.",
-      "exact_quote": "our actions to drive demand to AI products may result in cannibalization of demand for our traditional, non-AI products, which may result in lower net revenues and/or profit margins."
+      "title": "Aggressive price competition and market share losses",
+      "why_it_matters": "HP has already faced market share declines and has had to cut prices to stay competitive, which pressures revenue and gross margin. Lower-cost rivals and yen weakness benefiting Japanese print competitors make this pressure persistent.",
+      "exact_quote": "We have faced and expect to continue to face aggressive price competition and have lowered and may in the future need to lower the prices of many of our products and services to stay competitive"
     },
     {
       "rank": 5,
-      "title": "Credit rating downgrade raising borrowing costs and limiting funding access",
-      "why_it_matters": "For lenders, a downgrade would raise borrowing costs, limit access to commercial paper and could require HP to post more collateral. Shareholders could also be affected, because protecting the rating may mean less cash for dividends and buybacks.",
+      "title": "Credit rating downgrade and debt refinancing risk",
+      "why_it_matters": "A downgrade would raise borrowing costs, restrict commercial paper access and require more collateral. It could also force debt reduction that limits dividends and buybacks, and would hurt the subscription businesses that depend on financing.",
       "exact_quote": "A downgrade of our current credit rating could increase the cost of borrowing under our credit facilities, reduce access to capital markets and/or market capacity for our commercial paper or require the posting of additional collateral under some of our derivative contracts."
     }
   ],
@@ -39,6 +39,10 @@
     "filing_date": "2025-12-10",
     "report_date": "2025-10-31",
     "primary_document": "hpq-20251031.htm",
-    "run": 2
+    "run": 2,
+    "model_requested": "claude-opus-5-5",
+    "models_used": [
+      "claude-opus-5-5"
+    ]
   }
 }

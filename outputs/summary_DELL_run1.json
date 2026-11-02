@@ -2,33 +2,33 @@
   "risks": [
     {
       "rank": 1,
-      "title": "AI revenue concentrated in a few large customers, straining working capital",
-      "why_it_matters": "AI is Dell's main growth driver, but a few large buyers and cloud providers account for most AI sales. That leaves revenue lumpy, margins under pricing pressure, and cash flow exposed to big component purchases, inventory build-ups and longer customer payment terms.",
+      "title": "AI server demand concentrated among few large customers",
+      "why_it_matters": "Dell's AI growth depends on a small group of large buyers, which makes revenue lumpy and exposes margins to intense pricing pressure. Large orders also tie up working capital, add inventory risk and extend credit exposure, which affects both earnings quality and cash flow.",
       "exact_quote": "to date our AI solutions have been purchased primarily by a small number of larger customers and cloud service providers. If we are not successful in continuing to expand sales to a broader base of customers, our ability to maintain growth in this area may be limited."
     },
     {
       "rank": 2,
-      "title": "Supply shortages and rising component costs with minimal inventory buffer",
-      "why_it_matters": "Dell buys all of its components from outside vendors and relies on a few contract manufacturers in Asia, while holding very little inventory. Shortages, tariffs or price spikes therefore hit shipments and gross margin quickly, especially while AI demand is high.",
+      "title": "Component supply shortages and cost inflation from concentrated vendors",
+      "why_it_matters": "Dell sources all components from third parties, relies on a few contract manufacturers in Asia and holds minimal inventory. Shortages or price spikes can directly hit shipments and gross margins, especially during periods of rapid AI demand.",
       "exact_quote": "Because we generally maintain minimal levels of component and product inventories, a disruption in component or product availability could harm our ability to fill customer orders on a timely basis and at an acceptable price."
     },
     {
       "rank": 3,
-      "title": "Large debt load limits financial flexibility",
-      "why_it_matters": "Debt service takes a substantial share of operating cash flow, leaving less for investment, dividends and buybacks. Dell can also add more debt through its commercial paper program and revolving credit facility, which matters directly to lenders.",
+      "title": "Substantial indebtedness constrains cash flow and financial flexibility",
+      "why_it_matters": "A large debt load means a substantial portion of operating cash flow goes to debt service, reducing funds for investment, dividends and buybacks. Debt terms generally do not restrict additional unsecured borrowing, which matters to lenders assessing leverage and subordination risk.",
       "exact_quote": "As of January 30, 2026, we and our subsidiaries had approximately $31.5 billion of indebtedness."
     },
     {
       "rank": 4,
-      "title": "Structural decline and longer replacement cycles in the PC market",
-      "why_it_matters": "CSG, the PC business, absorbs Dell's overhead costs and gives it scale in purchasing. Shrinking PC revenue and slower replacement cycles could therefore hurt operating income across the whole company.",
-      "exact_quote": "CSG faces risks and uncertainties from fundamental changes in the personal computer market, including a decline in worldwide revenues for notebooks, desktops, and workstations, and lower shipment forecasts for these products due to a general lengthening of the replacement cycle."
+      "title": "Tariffs, trade disputes and adverse macroeconomic conditions",
+      "why_it_matters": "With global manufacturing and significant non-U.S. sales, tariffs and trade restrictions can raise costs, depress demand and disrupt supply chains. Macro weakness can also delay customer IT spending, pressuring both revenue and profitability.",
+      "exact_quote": "Trade policies and disputes could result in increased tariffs and other trade restrictions and protectionist measures, which could increase our manufacturing costs, increase prices of and reduce demand for our products"
     },
     {
       "rank": 5,
-      "title": "Founder and Silver Lake control nearly all voting power",
-      "why_it_matters": "Class C shareholders have almost no influence over directors, mergers or capital allocation, and the controlling holders' interests may differ from theirs. The large number of convertible shares these holders could sell also weighs on the stock price.",
-      "exact_quote": "Michael Dell and the Susan Lieberman Dell Separate Property Trust (the \"MD stockholders\") and certain investment funds affiliated with Silver Lake Partners (the \"SLP stockholders\") collectively held common stock representing approximately 91.7% of the total voting power of our outstanding common stock as of March 9, 2026."
+      "title": "Controlling stockholders dominate voting through multi-class share structure",
+      "why_it_matters": "Michael Dell and Silver Lake control nearly all voting power, so Class C holders have little influence over directors, mergers or capital allocation. Their interests may conflict with those of minority shareholders and creditors, and the structure may weigh on the valuation.",
+      "exact_quote": "collectively held common stock representing approximately 91.7% of the total voting power of our outstanding common stock as of March 9, 2026."
     }
   ],
   "_meta": {
@@ -39,6 +39,10 @@
     "filing_date": "2026-03-16",
     "report_date": "2026-01-30",
     "primary_document": "dell-20260130.htm",
-    "run": 1
+    "run": 1,
+    "model_requested": "claude-opus-5-5",
+    "models_used": [
+      "claude-opus-5-5"
+    ]
   }
 }

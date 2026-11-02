@@ -2,10 +2,10 @@
   "summary": {
     "structure_pass": true,
     "quotes_verified": 5,
-    "distinct_risk_factors": 4,
+    "distinct_risk_factors": 5,
     "quotes_total": 5,
-    "numbers_total": 1,
-    "verified": 1,
+    "numbers_total": 2,
+    "verified": 2,
     "needs review": 0,
     "not in source": 0
   },
@@ -13,7 +13,7 @@
   "risks": [
     {
       "rank": 1,
-      "title": "Secular decline in high-margin printing and supplies",
+      "title": "Secular decline in printing demand and supplies profitability",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -24,7 +24,7 @@
     },
     {
       "rank": 2,
-      "title": "Tariffs and trade restrictions squeezing margins and cash flow",
+      "title": "Tariffs and trade restrictions raising costs not fully offset",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -32,6 +32,11 @@
         "risk_heading": "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or other factors could harm our business and financial performance."
       },
       "numbers": [
+        {
+          "field": "why_it_matters",
+          "number": "65%",
+          "outcome": "verified"
+        },
         {
           "field": "exact_quote",
           "number": "2025",
@@ -41,7 +46,7 @@
     },
     {
       "rank": 3,
-      "title": "Rising memory and component costs compressing Personal Systems margins",
+      "title": "Rising memory and component costs squeezing Personal Systems margins",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -52,18 +57,18 @@
     },
     {
       "rank": 4,
-      "title": "Concentrated, geopolitically exposed manufacturing and supply chain",
+      "title": "AI transition execution and cannibalization of traditional products",
       "quote": {
         "verified": true,
         "ellipsis": false,
-        "paragraph": 91,
-        "risk_heading": "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or other factors could harm our business and financial performance."
+        "paragraph": 8,
+        "risk_heading": "We expect the proliferation of AI to have a significant impact on our industry and the markets in which we compete, and the development and use of AI presents competitive, reputational, and liability risks."
       },
       "numbers": []
     },
     {
       "rank": 5,
-      "title": "Credit rating downgrade raising funding costs and limiting liquidity",
+      "title": "Credit rating downgrade and debt refinancing risk",
       "quote": {
         "verified": true,
         "ellipsis": false,

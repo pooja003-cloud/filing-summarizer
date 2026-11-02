@@ -4,8 +4,8 @@
     "quotes_verified": 5,
     "distinct_risk_factors": 5,
     "quotes_total": 5,
-    "numbers_total": 2,
-    "verified": 2,
+    "numbers_total": 1,
+    "verified": 1,
     "needs review": 0,
     "not in source": 0
   },
@@ -13,29 +13,7 @@
   "risks": [
     {
       "rank": 1,
-      "title": "Tariffs and trade restrictions squeezing costs and margins",
-      "quote": {
-        "verified": true,
-        "ellipsis": false,
-        "paragraph": 92,
-        "risk_heading": "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or other factors could harm our business and financial performance."
-      },
-      "numbers": [
-        {
-          "field": "why_it_matters",
-          "number": "65%",
-          "outcome": "verified"
-        },
-        {
-          "field": "exact_quote",
-          "number": "2025",
-          "outcome": "verified"
-        }
-      ]
-    },
-    {
-      "rank": 2,
-      "title": "Long-term decline in printing demand and loss of supplies profits",
+      "title": "Secular decline in printing demand and supplies profitability",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -45,8 +23,25 @@
       "numbers": []
     },
     {
+      "rank": 2,
+      "title": "Tariffs and trade restrictions raising costs and squeezing margins",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 92,
+        "risk_heading": "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or other factors could harm our business and financial performance."
+      },
+      "numbers": [
+        {
+          "field": "exact_quote",
+          "number": "2025",
+          "outcome": "verified"
+        }
+      ]
+    },
+    {
       "rank": 3,
-      "title": "Rising memory and component costs cutting Personal Systems margins",
+      "title": "Rising memory, storage and component costs in Personal Systems",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -57,18 +52,18 @@
     },
     {
       "rank": 4,
-      "title": "AI product shift may not pay off and may cannibalize sales",
+      "title": "Aggressive price competition and market share losses",
       "quote": {
         "verified": true,
         "ellipsis": false,
-        "paragraph": 8,
-        "risk_heading": "We expect the proliferation of AI to have a significant impact on our industry and the markets in which we compete, and the development and use of AI presents competitive, reputational, and liability risks."
+        "paragraph": 28,
+        "risk_heading": "We operate in an intensely competitive industry and competitive pressures could harm our business and financial performance."
       },
       "numbers": []
     },
     {
       "rank": 5,
-      "title": "Credit rating downgrade raising borrowing costs and limiting funding access",
+      "title": "Credit rating downgrade and debt refinancing risk",
       "quote": {
         "verified": true,
         "ellipsis": false,

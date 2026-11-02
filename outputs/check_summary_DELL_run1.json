@@ -13,7 +13,7 @@
   "risks": [
     {
       "rank": 1,
-      "title": "AI revenue concentrated in a few large customers, straining working capital",
+      "title": "AI server demand concentrated among few large customers",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -24,7 +24,7 @@
     },
     {
       "rank": 2,
-      "title": "Supply shortages and rising component costs with minimal inventory buffer",
+      "title": "Component supply shortages and cost inflation from concentrated vendors",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -35,7 +35,7 @@
     },
     {
       "rank": 3,
-      "title": "Large debt load limits financial flexibility",
+      "title": "Substantial indebtedness constrains cash flow and financial flexibility",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -62,18 +62,18 @@
     },
     {
       "rank": 4,
-      "title": "Structural decline and longer replacement cycles in the PC market",
+      "title": "Tariffs, trade disputes and adverse macroeconomic conditions",
       "quote": {
         "verified": true,
         "ellipsis": false,
-        "paragraph": 12,
-        "risk_heading": "The operating results of our business units may be adversely affected if we fail to successfully execute our strategy and related initiatives."
+        "paragraph": 5,
+        "risk_heading": "Adverse global economic conditions may harm our business and result in reduced net revenue and profitability."
       },
       "numbers": []
     },
     {
       "rank": 5,
-      "title": "Founder and Silver Lake control nearly all voting power",
+      "title": "Controlling stockholders dominate voting through multi-class share structure",
       "quote": {
         "verified": true,
         "ellipsis": false,

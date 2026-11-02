@@ -320,6 +320,11 @@ def planted_caught(results: dict, notes: list[dict]) -> list[bool]:
 # ---------------------------------------------------------------- consistency
 
 def consistency(ticker: str, src: str, blocks: list[dict], sentences: list[str]) -> None:
+    """Compare runs by the source risk factors their verified quotes come from.
+
+    A run can spend two slots on one risk factor, so each run's denominator is
+    its number of DISTINCT risk factors, not 5. Failed quotes count as unmatched.
+    """
     runs = sorted(OUT_DIR.glob(f"summary_{ticker}_run*.json"))
     if len(runs) < 2:
         return
@@ -330,17 +335,21 @@ def consistency(ticker: str, src: str, blocks: list[dict], sentences: list[str])
         for r in data.get("risks", []):
             q = check_quote(str(r.get("exact_quote", "")), src, blocks, sentences)
             if q["verified"] and q.get("risk_heading"):
-                headings.add(q["risk_heading"])  # failed quotes count as unmatched
+                headings.add(q["risk_heading"])
         chosen[path.stem.split("_")[-1]] = headings
-    log(f"\nCONSISTENCY across {len(runs)} runs (compared by source risk heading):")
+
+    log(f"\nCONSISTENCY across {len(runs)} runs (compared by source risk factor):")
+    for run, hs in chosen.items():
+        log(f"  {run}: {len(hs)} distinct risk factors")
     for a, b in combinations(chosen, 2):
-        log(f"  {a} vs {b}: same {len(chosen[a] & chosen[b])} of 5 risk factors")
-    tally = {}
-    for hs in chosen.values():
-        for h in hs:
-            tally[h] = tally.get(h, 0) + 1
+        shared = len(chosen[a] & chosen[b])
+        log(f"  {a} vs {b}: {shared} shared "
+            f"({shared}/{len(chosen[a])} of {a}'s, {shared}/{len(chosen[b])} of {b}'s)")
+    union = set().union(*chosen.values())
+    log(f"  All runs together drew on {len(union)} distinct risk factors:")
+    tally = {h: sum(h in hs for hs in chosen.values()) for h in union}
     for h, n in sorted(tally.items(), key=lambda x: -x[1]):
-        log(f"  picked in {n}/{len(runs)} runs: {h[:90]}")
+        log(f"    picked in {n}/{len(runs)} runs: {h[:90]}")
 
 
 # ---------------------------------------------------------------- main
@@ -357,7 +366,7 @@ def main() -> None:
     path = args.file or OUT_DIR / f"summary_{ticker}_run{args.run}.json"
     src, blocks, sentences = load_source(ticker)
     data = json.loads(path.read_text(encoding="utf-8"))
-    log(f"=== check.py {ticker} - {dt.datetime.now():%Y-%m-%d %H:%M} ===")
+    log(f"=== check.py {ticker} - {dt.datetime.now().astimezone():%Y-%m-%d %H:%M %Z} ===")
 
     if args.plant:
         planted, notes = plant_errors(data, src)

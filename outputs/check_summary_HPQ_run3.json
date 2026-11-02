@@ -30,7 +30,7 @@
     },
     {
       "rank": 2,
-      "title": "Long-term decline in the high-margin print and ink supplies business",
+      "title": "Secular decline and mix shift eroding high-margin print supplies",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -41,7 +41,7 @@
     },
     {
       "rank": 3,
-      "title": "Rising memory and component costs hurting PC gross margins",
+      "title": "Rising memory and component costs compressing Personal Systems margins",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -52,23 +52,23 @@
     },
     {
       "rank": 4,
-      "title": "Credit rating downgrade raising funding costs and limiting liquidity",
-      "quote": {
-        "verified": true,
-        "ellipsis": false,
-        "paragraph": 104,
-        "risk_heading": "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs and access to capital markets, as well as our subscription based and other offerings."
-      },
-      "numbers": []
-    },
-    {
-      "rank": 5,
-      "title": "Heavy AI investment may not pay off and may cannibalize sales",
+      "title": "AI transition execution and cannibalization of legacy products",
       "quote": {
         "verified": true,
         "ellipsis": false,
         "paragraph": 8,
         "risk_heading": "We expect the proliferation of AI to have a significant impact on our industry and the markets in which we compete, and the development and use of AI presents competitive, reputational, and liability risks."
+      },
+      "numbers": []
+    },
+    {
+      "rank": 5,
+      "title": "Credit rating downgrade raising borrowing costs and limiting funding",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 104,
+        "risk_heading": "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs and access to capital markets, as well as our subscription based and other offerings."
       },
       "numbers": []
     }

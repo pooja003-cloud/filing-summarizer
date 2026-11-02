@@ -4,8 +4,8 @@
     "quotes_verified": 5,
     "distinct_risk_factors": 5,
     "quotes_total": 5,
-    "numbers_total": 7,
-    "verified": 7,
+    "numbers_total": 9,
+    "verified": 9,
     "needs review": 0,
     "not in source": 0
   },
@@ -13,7 +13,7 @@
   "risks": [
     {
       "rank": 1,
-      "title": "Concentrated, lumpy AI demand strains margins, working capital and credit",
+      "title": "AI server demand concentrated in a few large customers",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -24,18 +24,7 @@
     },
     {
       "rank": 2,
-      "title": "Supply chain shortages, component costs and concentrated contract manufacturing",
-      "quote": {
-        "verified": true,
-        "ellipsis": false,
-        "paragraph": 16,
-        "risk_heading": "Our relationships with our product and component vendors could harm our business by adversely affecting product availability, delivery, reliability, and cost."
-      },
-      "numbers": []
-    },
-    {
-      "rank": 3,
-      "title": "Large debt load and ability to add more debt",
+      "title": "Large debt load with capacity for additional borrowing",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -43,6 +32,21 @@
         "risk_heading": "We have outstanding indebtedness and may incur additional debt in the future, which could adversely affect our financial condition."
       },
       "numbers": [
+        {
+          "field": "why_it_matters",
+          "number": "$31.5 billion",
+          "outcome": "verified"
+        },
+        {
+          "field": "why_it_matters",
+          "number": "$5.0 billion",
+          "outcome": "verified"
+        },
+        {
+          "field": "why_it_matters",
+          "number": "$5.9 billion",
+          "outcome": "verified"
+        },
         {
           "field": "exact_quote",
           "number": "30",
@@ -57,17 +61,23 @@
           "field": "exact_quote",
           "number": "$31.5 billion",
           "outcome": "verified"
-        },
-        {
-          "field": "exact_quote",
-          "number": "$5.0 billion",
-          "outcome": "verified"
         }
       ]
     },
     {
+      "rank": 3,
+      "title": "Supply chain dependence on concentrated vendors and contract manufacturers",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 16,
+        "risk_heading": "Our relationships with our product and component vendors could harm our business by adversely affecting product availability, delivery, reliability, and cost."
+      },
+      "numbers": []
+    },
+    {
       "rank": 4,
-      "title": "Structural PC market pressure and competition in CSG and ISG",
+      "title": "Structural pressure on the PC business (CSG)",
       "quote": {
         "verified": true,
         "ellipsis": false,
@@ -78,7 +88,7 @@
     },
     {
       "rank": 5,
-      "title": "Controlling shareholders and multi-class voting limit minority holder influence",
+      "title": "Controlling shareholders limit Class C holders' influence",
       "quote": {
         "verified": true,
         "ellipsis": false,

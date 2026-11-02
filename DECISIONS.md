@@ -82,6 +82,15 @@ A log of design choices and the reasoning behind them. Each entry records what w
 - **Stdin vs. command-line argument:** a Risk Factors section is tens of thousands of characters. Passing it as an argument risks hitting OS argument-length limits and shell-quoting bugs. Stdin has neither problem.
 - Isolating the call in `ask_llm()` means switching to the paid API later changes only that function.
 
+**Isolation (added after review):** the first runs called a plain `claude -p` from inside the project folder. Claude Code's tools were active, so in principle the model could have read earlier runs in `outputs/`, which would undermine the consistency test, and the user's own Claude Code setup inflated the prompt. Every call now runs with:
+- `--tools ""`: no built-in tools.
+- `--strict-mcp-config`: no MCP servers (`--tools ""` alone doesn't cover these).
+- `--no-session-persistence`: nothing saved between calls.
+- An empty temporary folder as the working directory.
+- `--model claude-opus-5-5`: pinned, so a rerun months later uses the same model. The model actually used is read from the reply and logged. **Why Opus over Sonnet:** quote copying and number accuracy (what check.py measures) are easy for either model; the hard part is judging which 5 of 31-40 risk factors matter most to an analyst, where a stronger model helps. With only 6 calls, Opus's higher draw on Pro usage limits doesn't matter.
+
+The full reply envelope (model, turns, token usage) is saved as `outputs/llm_envelope_<TICKER>_run<N>.json` as evidence. All 6 runs were redone after this fix; earlier results are discarded.
+
 **Rules:**
 - Never set `ANTHROPIC_API_KEY`. It would bill the API instead of using Pro.
 - No `.env.example` is needed for Project 0.
@@ -162,7 +171,7 @@ A log of design choices and the reasoning behind them. Each entry records what w
 
 ## 11. Planted errors
 
-**Decision:** Plant three errors in a **copy** of a real output (`outputs/planted_hpq.json`) and run check.py on it:
+**Decision:** Plant three errors in a **copy** of a real output (`outputs/planted_HPQ.json`, `outputs/planted_DELL.json`) and run check.py on it:
 1. A corrupted quote (one word changed).
 2. A changed digit in an existing number.
 3. An inserted number that doesn't appear in the filing.
@@ -177,7 +186,7 @@ A log of design choices and the reasoning behind them. Each entry records what w
 
 **Metric:** how much the top 5 overlaps between runs, compared by **source location**, not by the model's titles (which are worded differently every run).
 - Each verified quote has an exact position in the filing. Map it to the **individual risk heading** it falls under (not the category heading like "Risks Related to…", which would make almost any two runs look consistent).
-- Report e.g. "runs 1 and 2 picked the same 4 of 5 risk factors."
+- The denominator is each run's number of **distinct** risk factors, not 5, because a run can spend two slots on one risk factor. Report e.g. "run1 vs run2: 4 shared (4/4 of run1's, 4/5 of run2's)", plus how many distinct risk factors all runs together drew on.
 - A quote that fails verification has no location, so its risk counts as **unmatched**.
 
 **Heading detection:** headings become indistinguishable from body text once HTML is flattened, so detect them while parsing:
@@ -193,7 +202,8 @@ A log of design choices and the reasoning behind them. Each entry records what w
 ## Operational rules
 
 - **SEC EDGAR:** every request sends a `User-Agent` header with name and email. Maximum 10 requests per second.
-- **Dependencies:** `requests`, `beautifulsoup4`. Everything else is standard library.
+- **Dependencies:** `requests==2.34.2`, `beautifulsoup4==4.15.0` (pinned to the tested versions). Everything else is standard library.
+- **Reproducibility:** `python run_all.py` clears generated outputs and reruns everything into one fresh `run_output.txt`, with timezone-stamped timestamps.
 - **Usage:** 6 consistency calls plus development runs, all on Pro limits. Token counts are rough estimates since Pro limits aren't published in tokens.
 
 ## Report format (run_output.txt / README)
