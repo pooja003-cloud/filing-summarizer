@@ -1,16 +1,60 @@
 # filing-summarizer
 
-An LLM-powered pipeline that reads the Risk Factors section of a company's 10-K, asks Claude for the top 5 risks with a supporting quote for each, and then **verifies every quote and number against the filing with code**.
+An LLM-powered pipeline that summarizes the top 5 risks in a company's 10-K, then **verifies every quote and number against the SEC filing with code**, treating the AI's output as untrusted until it is proven.
 
-## The problem
+---
 
-Equity and credit analysts spend hours reading 10-K risk factors. An LLM can summarize them in seconds, but it can also paraphrase a quote or invent a number. When the output feeds an investment or credit decision, that is unacceptable. This project treats the LLM's output as untrusted until a checker confirms it against the source.
+## Situation
 
-**Success criteria:** every quote and number verified against the filing, and deliberately planted errors caught.
+Equity and credit analysts spend hours reading the Risk Factors section of 10-K filings, often 10,000-15,000 words per company. An LLM can summarize that in seconds, but it can also paraphrase a quote or invent a number. When the summary feeds an investment or credit decision, a single fabricated figure makes the whole output unusable, and a quote that *looks* right is the hardest error to spot by eye.
 
-## Results
+## Task
 
-Two companies (HP Inc. and Dell Technologies), three isolated runs each on `claude-opus-5-5`. Reproduce everything with `python run_all.py`; the full log is in `outputs/run_output.txt`.
+Build a small pipeline that pulls Item 1A (Risk Factors) from a real 10-K on SEC EDGAR, asks an LLM for the 5 most important risks as structured JSON with a supporting quote for each, and **proves** the output is faithful to the filing.
+
+Success criteria, set before building:
+- Every quote appears **word for word** in the filing.
+- Every number the AI writes, including in its own explanations, exists in the filing.
+- Deliberately planted errors are caught, so a perfect score means something.
+- Results are reproducible: pinned filings, pinned model, one command to rerun everything.
+
+## Action
+
+### 1. Extracted the right text, and checked it
+- Fetched each company's latest **original** 10-K from SEC EDGAR (never a 10-K/A amendment) and pinned it by accession number.
+- Avoided the table-of-contents trap by using the *last* "Item 1A" match, ending at the next Item (1B, 1C or 2).
+- Cleaned EDGAR's HTML: removed page numbers and "Table of Contents" links repeated at every page break, rejoined paragraphs split mid-sentence, and normalized invisible characters, curly quotes and dashes with one shared `normalize()` function.
+- Detected risk headings while parsing the HTML, before formatting is lost, so each quote can be traced to the risk factor it came from.
+
+### 2. Called the LLM in isolation
+- One function, `ask_llm(prompt)`, calls `claude-opus-5-5` through Claude Code's non-interactive mode (`claude -p`, prompt via stdin) on a Pro login, with no API key and no extra cost. Swapping providers later changes only that function.
+- Each call is isolated: no tools, no MCP servers, no session persistence, an empty working directory. The full reply envelope (model used, 1 turn, token usage) is saved as evidence.
+- The prompt requires quotes copied word for word, no ellipses, original capitalization, and numbers copied exactly as written.
+
+### 3. Verified the output with code
+| Check | Rule |
+|---|---|
+| Structure | Valid JSON, exactly 5 risks, all fields present, ranks 1-5 |
+| Quotes | **Exact, case-sensitive** match after normalization. On failure: the closest passage and the exact word differences |
+| Numbers | Every number in every field, including the model's own explanation. Outcomes: *verified*, *needs review* (same value written differently), *not in source* |
+| Location | Each verified quote mapped to its individual risk factor in the filing |
+| Consistency | Runs compared by source risk factor, with each run's distinct risk factors as the denominator |
+| Planted errors | A copy of the output gets a corrupted quote, a changed digit and an invented number; all three must be caught |
+
+### 4. Key decisions
+Every decision and its reasoning is logged in [DECISIONS.md](DECISIONS.md). The ones that shaped the project:
+- **Exact over fuzzy matching.** Fuzzy matching accepts paraphrase, which is exactly what this project exists to catch.
+- **Risk Factors over MD&A.** The project tests quote fidelity; Risk Factors is long, quotable prose.
+- **Two companies.** HP and Dell format their filings differently, which proves the extractor isn't tuned to one document.
+- **Heading levels by structure, not styling.** HP styles category headings differently from individual risks; Dell bolds everything identically. The rule that works for both: a category heading is followed directly by another heading.
+- **Opus over Sonnet.** Copying quotes is easy for either model; the hard part is judging which 5 of 31-40 risk factors matter most.
+
+### 5. Corrected course when the method was wrong
+A review of the first results found two flaws: the first LLM calls weren't isolated (Claude Code's tools were active, so in principle a run could have read earlier outputs), and the consistency metric used 5 as the denominator even when a run used two slots on one risk factor. Both were fixed, and **every result was rerun** rather than kept.
+
+## Result
+
+Two companies, three isolated runs each, 6 LLM calls. Reproduce with `python run_all.py`; full log in `outputs/run_output.txt`.
 
 | | HPQ | DELL | Total |
 |---|---|---|---|
@@ -22,75 +66,46 @@ Two companies (HP Inc. and Dell Technologies), three isolated runs each on `clau
 | Risk factors shared between run pairs | 4, 5, 4 | 4, 4, 4 | |
 | Distinct risk factors across all 3 runs | 6 | 6 | |
 
-A perfect hit rate only means something if the checker can fail. The planted-error test shows it does: one corrupted quote, one changed digit and one invented number per company, all caught.
+**What the results show**
+- **Exact matching was necessary.** Deleting one word from a 35-word quote scored **0.99** similarity; swapping "may" for "could" scored **0.98**. Any fuzzy threshold, even 95%, would have passed both planted errors.
+- **The top 3 is stable.** For both companies, every run picked the same three risk factors for ranks 1-3. HP: print supplies decline, tariffs, memory and component costs. Dell: AI demand concentration, vendor dependence, debt. All variation between runs sits at ranks 4-5.
+- **The model's own numbers were right in context.** check.py only confirms a number appears in the section, so I checked the 6 numbers the model wrote in its own words by hand: HP's 65% and Dell's 45% (revenue from outside the US) and Dell's $31.5 billion debt, $5.0 billion commercial paper and $5.9 billion revolver capacity all carry the meaning the filing gives them.
+- **Isolation mattered.** Before the fix, Claude Code's own setup inflated each HP call to ~47k input tokens; isolated calls use ~31k.
 
-## Data quality
+**Data quality**
 
 | Check | HPQ | DELL |
 |---|---|---|
 | Filing (original 10-K, pinned accession) | FY2025, 0000047217-25-000071 | FY2026, 0001571996-26-000008 |
-| "Item 1A" matches (first is the table of contents; last one used) | 2 | 2 |
+| "Item 1A" matches (first = table of contents; last used) | 2 | 2 |
 | Section ends at | Item 1B | Item 1B |
 | Section length | 14,559 words | 10,714 words |
 | Page numbers / "Table of Contents" lines removed | 30 | 30 |
 | Paragraphs split by page breaks, rejoined | 7 | 0 |
-| Headings detected (categories + individual risks) | 3 + 31 | 2 + 40 |
+| Headings (categories + individual risks) | 3 + 31 | 2 + 40 |
 | Input tokens per LLM call | ~30,750 | ~23,570 |
-
-The first and last lines of every extracted section are logged on each run, so a wrong extraction is visible before any LLM call is made (`--extract-only`).
-
-## How it works
-
-```
-SEC EDGAR ──► summarize.py ──────────────────────────────► check.py
-              1. find the pinned 10-K (never a 10-K/A)       1. structure: valid JSON, 5 risks, ranks 1-5
-              2. extract Item 1A Risk Factors                2. quotes: exact match after normalization
-              3. clean HTML, detect risk headings            3. numbers: every number the model wrote
-              4. ask Claude (isolated) for top 5 as JSON     4. map each quote to its risk factor
-              5. save summary, section, reply envelope       5. compare runs for consistency
-```
-
-**summarize.py**
-- Uses the *last* "Item 1A" match and ends at the next Item (1B, 1C or 2).
-- Removes page furniture and rejoins paragraphs that a page break split mid-sentence.
-- Detects risk headings while parsing the HTML, before formatting is lost.
-- Calls Claude through one function, `ask_llm(prompt)`, so swapping the LLM provider changes nothing else.
-- **Each call is isolated:** no tools (`--tools ""`), no MCP servers (`--strict-mcp-config`), no session persistence, an empty temporary working directory, and a pinned model. The full reply envelope is saved per run as evidence (model used, 1 turn, token usage).
-
-**check.py**
-- **Quotes** must appear exactly, case-sensitive, after both sides go through the same `normalize()` (non-breaking spaces, soft hyphens, curly quotes, dashes, whitespace). On failure it shows the closest passage and the exact word differences.
-- **Numbers** are extracted from every content field, including the model's own explanation, where invented numbers are most likely. Outcomes: *verified*, *needs review* (same value written differently, e.g. "65%" vs. "65 percent") or *not in source*.
-- **Consistency** compares runs by the source risk factor each verified quote falls under, with each run's number of distinct risk factors as the denominator.
-- **Planted errors** (`--plant`) are written to a separate copy so test results never mix with real ones.
-
-## Key findings
-
-**Exact matching is the right rule.** Deleting one word from a 35-word HP quote gave a similarity of **0.99**; swapping "may" for "could" in a Dell quote gave **0.98**. Any fuzzy threshold, even 95%, would have marked both as verified. Paraphrase is exactly what this project exists to catch.
-
-**The top 3 is stable; variation sits at ranks 4-5.** For both companies, every run picked the same three risk factors for ranks 1-3. HP: print supplies decline, tariffs, memory and component costs. Dell: AI demand concentration, vendor dependence, debt. All variation between runs is in the last two slots (for Dell, macroeconomic conditions vs. PC business execution vs. the multi-class share structure).
-
-**Isolation changed the inputs.** A first version called Claude Code without isolation: its tools were active (in principle the model could have read earlier runs' output files) and Claude Code's own setup inflated each call to ~47k input tokens. After the fix, HP calls use ~31k. All results above come from the isolated version; earlier runs were discarded.
-
-**Heading levels need structure, not styling.** HP styles category headings bold and individual risks bold-italic; Dell bolds everything the same way. The rule that works for both: a category heading is followed directly by another heading, and an individual risk heading is followed by body text.
-
-**The model's own numbers were right in context.** check.py confirms only that a number appears in the section. I checked the 6 numbers the model wrote in its own words by hand: HP's 65% and Dell's 45% (revenue from outside the US) and Dell's $31.5 billion debt, $5.0 billion commercial paper and $5.9 billion revolver capacity are all used with the meaning the filing gives them.
 
 ## Limitations
 
-- **Verified against the extracted section, not the whole filing.** A number or quote from another part of the 10-K would be reported as "not in source".
-- **Numbers are checked without context.** The checker cannot tell whether a number is attached to the right metric; the context check above was manual.
+- **Verified against the extracted section, not the whole filing.** A number or quote from elsewhere in the 10-K would show as "not in source".
+- **Numbers are checked without context.** The checker can't tell whether a number is attached to the right metric; the context check above was manual.
 - **Reasoning is not verified.** Interpretations in `why_it_matters` (e.g. Dell's "loose covenants") are the model's judgment. Only quotes and numbers are checked.
 - **Numbers written as words** ("five") are not extracted.
 - **Small sample:** two filings, six runs, one model. Enough to show the method works, not to measure an error rate or compare models.
-- **Ranking is not evaluated.** Whether these are truly the 5 most important risks is a judgment call the checker cannot make.
+- **Ranking is not evaluated.** Whether these are truly the 5 most important risks is a judgment the checker cannot make.
 
 ## What AI did vs. what I did
 
-<!-- EDIT THIS SECTION IN YOUR OWN WORDS BEFORE PUBLISHING. Draft based on how the project was built. -->
+**What I did**
+- **Set the requirement:** an AI risk summary is unusable for an investment or credit decision unless every quote and number can be traced back to the SEC filing.
+- **Made the scope decisions:** chose HP and Dell as the test cases, picked Item 1A over MD&A, required exact rather than fuzzy matching, and chose Claude Opus over Sonnet for the hard part, ranking which risks matter most.
+- **Challenged the plan before building:** I brought in outside feedback and kept what held up, like testing a second company and extending my planted-error test to number errors, while rejecting suggestions that didn't fit.
+- **Checked the results instead of trusting them:** I ran the pipeline, read the outputs and audited the methodology. I caught that my early LLM calls weren't isolated and that the consistency metric used the wrong denominator. I fixed both and reran every result rather than keep numbers I couldn't defend.
 
-**I** defined the project: the problem, the target users, the success criteria, the data quality checks and the list of decisions to make. I chose the companies, made or approved every design decision recorded in [DECISIONS.md](DECISIONS.md), ran the pipeline on my machine, and reviewed each stage critically. That review caught real problems, most importantly that the first LLM calls weren't isolated and the consistency metric used the wrong denominator, which led to rerunning all results.
-
-**Claude (Anthropic's AI assistant)** wrote the code and tests to my specifications, proposed technical approaches for me to accept or reject, and helped draft this documentation.
+**What Claude did**
+- Proposed much of the technical design, including the verification approach and the normalization rules, which I then vetted, changed or rejected.
+- Wrote the code and 19 unit tests, including a synthetic 10-K packed with known traps to see whether the pipeline would break.
+- Reviewed the outputs and drafted the initial documentation, which I then edited into its final version.
 
 ## Run it
 
@@ -107,7 +122,7 @@ python run_all.py --pause 20                  # everything: 6 LLM runs, all chec
 
 Or step by step: `python summarize.py HPQ --run 1`, then `python check.py HPQ --run 1` and `python check.py HPQ --plant`.
 
-**No API key.** The LLM call goes through Claude Code's non-interactive mode (`claude -p --output-format json`, prompt sent via stdin) using a Claude Pro login. The script refuses to run if `ANTHROPIC_API_KEY` is set, since that would bill the API instead. Filings are pinned by accession number and the model by ID, so reruns read the same document with the same model.
+The script refuses to run if `ANTHROPIC_API_KEY` is set, since that would bill the API instead of the Pro plan.
 
 ## Project structure
 
@@ -117,12 +132,10 @@ filing-summarizer/
 ├── check.py              verify quotes and numbers, planted errors, consistency
 ├── run_all.py            reproduce all results into one fresh log
 ├── textnorm.py           the shared normalize() used by both scripts
-├── tests/                unit tests and a fake 10-K containing the known traps
+├── tests/                19 unit tests and a fake 10-K containing the known traps
 ├── outputs/              sections, summaries, reply envelopes, check results, run_output.txt
 ├── DECISIONS.md          every design decision and the reasoning behind it
 └── requirements.txt      requests==2.34.2, beautifulsoup4==4.15.0
 ```
 
-## Skills demonstrated
-
-LLM API integration · structured JSON output · prompt constraints · isolating LLM calls for reproducibility · keeping secrets out of code · verifying AI output with code · test-driven data cleaning (SEC EDGAR HTML)
+**Skills:** LLM integration · structured JSON output · prompt constraints · isolating LLM calls for reproducibility · keeping secrets out of code · verifying AI output with code · test-driven data cleaning (SEC EDGAR HTML)
