@@ -30,10 +30,10 @@ I read the verified top 5 for HP and Dell side by side. Both companies' first th
 - I chose **two companies** over **one** because HP and Dell format their filings differently. Dell bolds every heading the same way, which broke my first rule for finding risk headings and forced a better one.
 
 ## What worked, what didn't, and why
-- ✅ 30/30 quotes matched word for word and 24/24 numbers were found in the filing, across 6 runs.
-- ✅ The checker caught 6/6 planted errors, and both companies' top 3 risks were identical in every run.
-- ❌ My first AI calls weren't isolated: in principle a run could read earlier outputs, which made "3 independent runs" untrue. I isolated every call, and reran all results instead of keeping them.
-- ⚠️ The checker confirms a number *exists* in the filing, not that it's used with the right meaning. I checked the 6 numbers the AI wrote in its own words by hand; all were right, but that step isn't automated yet. Details and other limits: [docs/details.md](docs/details.md).
+- 30/30 quotes matched word for word and 24/24 numbers were found in the filing, across 6 runs.
+- The checker caught 6/6 planted errors, and both companies' top 3 risks were identical in every run.
+- My first AI calls weren't isolated: in principle a run could read earlier outputs, which made "3 independent runs" untrue. I isolated every call, and reran all results instead of keeping them.
+- The checker confirms a number *exists* in the filing, not that it's used with the right meaning. I checked the 6 numbers the AI wrote in its own words by hand; all were right, but that step isn't automated yet. Details and other limits: [docs/details.md](docs/details.md).
 
 ## What I'd do next
 - Automate the context check: compare the words around each number in the AI's text with the words around it in the filing.
