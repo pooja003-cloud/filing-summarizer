@@ -1,0 +1,35 @@
+# Top 5 risks: HP INC (HPQ)
+
+Source: Form 10-K, fiscal year ended 2025-10-31, accession 0000047217-25-000071, Item 1A Risk Factors. Run 2.
+
+Quotes are unverified until check.py has run.
+
+## 1. Tariffs and trade restrictions squeezing costs and margins
+
+New tariffs have already raised HP's costs, and its pricing and other actions have not fully offset them. Because about 65% of net revenue came from outside the United States and its supply chain is concentrated in Asia, sustained or retaliatory tariffs could significantly hurt earnings and cash flow.
+
+> As a result, during fiscal 2025, we experienced higher commodity and tariff costs, which were not fully mitigated by pricing and other actions enacted during the period.
+
+## 2. Long-term decline in printing demand and loss of supplies profits
+
+Print supplies have historically been a major source of profit, and demand is falling because of digitization, hybrid work and cheaper generic supplies. Customers are also moving to big tank printers, which earn less over the life of the device, putting a key source of cash flow at risk.
+
+> we believe we and others in our industry face continuing secular challenges related to, among other things, decreased demand for printing products and solutions as a result of increased digitization, hybrid work, increasing competition from generic alternatives
+
+## 3. Rising memory and component costs cutting Personal Systems margins
+
+Rising memory and storage costs, together with competitive pricing, directly reduce gross margins in the PC business, and HP may not be able to pass these costs on to customers. This puts near-term earnings at risk.
+
+> gross margin declines in certain businesses, reflecting the effect of competitive pricing pressures and increases in component and manufacturing costs, resulting from market dynamics, especially increasing memory and storage costs and potential supply chain constraints in our Personal Systems business
+
+## 4. AI product shift may not pay off and may cannibalize sales
+
+HP is spending heavily on AI-enabled products, but it may not earn back that investment. Sales of AI products could also replace sales of its traditional products, which could lower revenue and margins.
+
+> our actions to drive demand to AI products may result in cannibalization of demand for our traditional, non-AI products, which may result in lower net revenues and/or profit margins.
+
+## 5. Credit rating downgrade raising borrowing costs and limiting funding access
+
+For lenders, a downgrade would raise borrowing costs, limit access to commercial paper and could require HP to post more collateral. Shareholders could also be affected, because protecting the rating may mean less cash for dividends and buybacks.
+
+> A downgrade of our current credit rating could increase the cost of borrowing under our credit facilities, reduce access to capital markets and/or market capacity for our commercial paper or require the posting of additional collateral under some of our derivative contracts.

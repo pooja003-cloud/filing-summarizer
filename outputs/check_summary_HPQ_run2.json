@@ -1,0 +1,81 @@
+{
+  "summary": {
+    "structure_pass": true,
+    "quotes_verified": 5,
+    "distinct_risk_factors": 5,
+    "quotes_total": 5,
+    "numbers_total": 2,
+    "verified": 2,
+    "needs review": 0,
+    "not in source": 0
+  },
+  "structure": [],
+  "risks": [
+    {
+      "rank": 1,
+      "title": "Tariffs and trade restrictions squeezing costs and margins",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 92,
+        "risk_heading": "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or other factors could harm our business and financial performance."
+      },
+      "numbers": [
+        {
+          "field": "why_it_matters",
+          "number": "65%",
+          "outcome": "verified"
+        },
+        {
+          "field": "exact_quote",
+          "number": "2025",
+          "outcome": "verified"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Long-term decline in printing demand and loss of supplies profits",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 4,
+        "risk_heading": "If we cannot successfully execute our strategy and continue to develop, manufacture and market innovative products, services and solutions, our business and financial performance may suffer."
+      },
+      "numbers": []
+    },
+    {
+      "rank": 3,
+      "title": "Rising memory and component costs cutting Personal Systems margins",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 12,
+        "risk_heading": "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could adversely affect in the future, our financial results."
+      },
+      "numbers": []
+    },
+    {
+      "rank": 4,
+      "title": "AI product shift may not pay off and may cannibalize sales",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 8,
+        "risk_heading": "We expect the proliferation of AI to have a significant impact on our industry and the markets in which we compete, and the development and use of AI presents competitive, reputational, and liability risks."
+      },
+      "numbers": []
+    },
+    {
+      "rank": 5,
+      "title": "Credit rating downgrade raising borrowing costs and limiting funding access",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 104,
+        "risk_heading": "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs and access to capital markets, as well as our subscription based and other offerings."
+      },
+      "numbers": []
+    }
+  ]
+}

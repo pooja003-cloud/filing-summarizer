@@ -1,0 +1,107 @@
+{
+  "summary": {
+    "structure_pass": true,
+    "quotes_verified": 5,
+    "distinct_risk_factors": 5,
+    "quotes_total": 5,
+    "numbers_total": 7,
+    "verified": 7,
+    "needs review": 0,
+    "not in source": 0
+  },
+  "structure": [],
+  "risks": [
+    {
+      "rank": 1,
+      "title": "Concentrated, lumpy AI demand strains margins, working capital and credit",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 21,
+        "risk_heading": "The nature of the demand for AI solutions may have adverse effects on our operating performance."
+      },
+      "numbers": []
+    },
+    {
+      "rank": 2,
+      "title": "Supply chain shortages, component costs and concentrated contract manufacturing",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 16,
+        "risk_heading": "Our relationships with our product and component vendors could harm our business by adversely affecting product availability, delivery, reliability, and cost."
+      },
+      "numbers": []
+    },
+    {
+      "rank": 3,
+      "title": "Large debt load and ability to add more debt",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 93,
+        "risk_heading": "We have outstanding indebtedness and may incur additional debt in the future, which could adversely affect our financial condition."
+      },
+      "numbers": [
+        {
+          "field": "exact_quote",
+          "number": "30",
+          "outcome": "verified"
+        },
+        {
+          "field": "exact_quote",
+          "number": "2026",
+          "outcome": "verified"
+        },
+        {
+          "field": "exact_quote",
+          "number": "$31.5 billion",
+          "outcome": "verified"
+        },
+        {
+          "field": "exact_quote",
+          "number": "$5.0 billion",
+          "outcome": "verified"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Structural PC market pressure and competition in CSG and ISG",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 12,
+        "risk_heading": "The operating results of our business units may be adversely affected if we fail to successfully execute our strategy and related initiatives."
+      },
+      "numbers": []
+    },
+    {
+      "rank": 5,
+      "title": "Controlling shareholders and multi-class voting limit minority holder influence",
+      "quote": {
+        "verified": true,
+        "ellipsis": false,
+        "paragraph": 96,
+        "risk_heading": "Our multi-class common stock structure with different voting rights may adversely affect the trading price of the Class C Common Stock."
+      },
+      "numbers": [
+        {
+          "field": "exact_quote",
+          "number": "91.7%",
+          "outcome": "verified"
+        },
+        {
+          "field": "exact_quote",
+          "number": "9",
+          "outcome": "verified"
+        },
+        {
+          "field": "exact_quote",
+          "number": "2026",
+          "outcome": "verified"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,675 @@
+=== summarize.py HPQ run 1 - 2026-11-02 11:15 ===
+No accession pinned for HPQ. Resolved latest 10-K: 0000047217-25-000071
+  -> Pin it in PINNED_ACCESSIONS and DECISIONS.md for reproducible runs.
+Downloading https://www.sec.gov/Archives/edgar/data/47217/000004721725000071/hpq-20251031.htm
+Filing: HP INC | form 10-K | accession 0000047217-25-000071 | filed 2025-12-10 | period 2025-10-31
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B. Unresolved Staff Comments.'
+Section length: 98,429 characters, 14,559 words, 132 paragraphs, 34 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+First line: 'The following discussion of risk factors contains forward-looking statements. These risk factors may be important for un'
+Last line:  '), and various governments around the world have enacted, or are in the process of enacting, legislation on these rules.'
+Saved outputs/section_HPQ.txt and outputs/filing_HPQ.json
+--extract-only: stopping before the LLM call.
+
+=== summarize.py HPQ run 1 - 2026-11-02 19:16 ===
+Filing: HPQ | form 10-K (local file) | accession 47217_0000047217-25-000071.htm | filed n/a | period n/a
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B. Unresolved Staff Comments.'
+Section length: 98,422 characters, 14,559 words, 125 paragraphs, 34 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+Paragraphs split by page breaks, rejoined: 7
+First line: 'The following discussion of risk factors contains forward-looking statements. These risk factors may be important for un'
+Last line:  '...and various governments around the world have enacted, or are in the process of enacting, legislation on these rules.'
+Saved outputs/section_HPQ.txt and outputs/filing_HPQ.json
+--extract-only: stopping before the LLM call.
+
+=== summarize.py HPQ run 1 - 2026-11-02 11:20 ===
+Using cached filing: 47217_0000047217-25-000071.htm
+Filing: HP INC | form 10-K | accession 0000047217-25-000071 | filed 2025-12-10 | period 2025-10-31
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B. Unresolved Staff Comments.'
+Section length: 98,422 characters, 14,559 words, 125 paragraphs, 34 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+Paragraphs split by page breaks, rejoined: 7
+First line: 'The following discussion of risk factors contains forward-looking statements. These risk factors may be important for un'
+Last line:  '...and various governments around the world have enacted, or are in the process of enacting, legislation on these rules.'
+Saved outputs/section_HPQ.txt and outputs/filing_HPQ.json
+--extract-only: stopping before the LLM call.
+
+=== summarize.py DELL run 1 - 2026-11-02 11:20 ===
+No accession pinned for DELL. Resolved latest 10-K: 0001571996-26-000008
+  -> Pin it in PINNED_ACCESSIONS and DECISIONS.md for reproducible runs.
+Downloading https://www.sec.gov/Archives/edgar/data/1571996/000157199626000008/dell-20260130.htm
+Filing: Dell Technologies Inc. | form 10-K | accession 0001571996-26-000008 | filed 2026-03-16 | period 2026-01-30
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B - UNRESOLVED STAFF COMMENTS'
+Section length: 71,695 characters, 10,714 words, 125 paragraphs, 42 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+Paragraphs split by page breaks, rejoined: 0
+First line: 'Our business, operating results, financial condition, and prospects are subject to a variety of significant risks, many '
+Last line:  '...may fluctuate, and changes in cash flows, tax laws, and our stock price could also impact our stock repurchase program.'
+Saved outputs/section_DELL.txt and outputs/filing_DELL.json
+--extract-only: stopping before the LLM call.
+
+=== summarize.py HPQ run 1 - 2026-11-02 11:21 ===
+Using cached filing: 47217_0000047217-25-000071.htm
+Filing: HP INC | form 10-K | accession 0000047217-25-000071 | filed 2025-12-10 | period 2025-10-31
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B. Unresolved Staff Comments.'
+Section length: 98,422 characters, 14,559 words, 125 paragraphs, 34 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+Paragraphs split by page breaks, rejoined: 7
+First line: 'The following discussion of risk factors contains forward-looking statements. These risk factors may be important for un'
+Last line:  '...and various governments around the world have enacted, or are in the process of enacting, legislation on these rules.'
+Saved outputs/section_HPQ.txt and outputs/filing_HPQ.json
+LLM call: 21s, input tokens 2, output tokens 2177
+Model returned 5 risks. Saved outputs/summary_HPQ_run1.json. Next: python check.py HPQ
+
+=== check.py HPQ - 2026-11-02 19:24 ===
+Checking summary_HPQ_run1.json against section_HPQ.txt
+Structure: pass
+
+Risk 1: Secular decline in high-margin printing and supplies
+  Quote: VERIFIED, paragraph 4, under risk heading:
+         "If we cannot successfully execute our strategy and continue to develop, manufacture and market innovative prod"
+
+Risk 2: Tariffs and trade restrictions squeezing margins and cash flow
+  Quote: VERIFIED, paragraph 92, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+  Number '2025' in exact_quote: verified
+
+Risk 3: Rising memory and component costs compressing Personal Systems margins
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could a"
+
+Risk 4: Concentrated, geopolitically exposed manufacturing and supply chain
+  Quote: VERIFIED, paragraph 91, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+
+Risk 5: Credit rating downgrade raising funding costs and limiting liquidity
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs"
+
+RESULT: 5/5 quotes verified | 1 numbers in AI output: 1 verified, 0 needs review, 0 not in source | structure pass
+
+=== check.py HPQ - 2026-11-02 19:25 ===
+Checking summary_HPQ_run1.json against section_HPQ.txt
+Structure: pass
+
+Risk 1: Secular decline in high-margin printing and supplies
+  Quote: VERIFIED, paragraph 4, under risk heading:
+         "If we cannot successfully execute our strategy and continue to develop, manufacture and market innovative prod"
+
+Risk 2: Tariffs and trade restrictions squeezing margins and cash flow
+  Quote: VERIFIED, paragraph 92, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+  Number '2025' in exact_quote: verified
+
+Risk 3: Rising memory and component costs compressing Personal Systems margins
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could a"
+
+Risk 4: Concentrated, geopolitically exposed manufacturing and supply chain
+  Quote: VERIFIED, paragraph 91, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+
+Risk 5: Credit rating downgrade raising funding costs and limiting liquidity
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs"
+
+Note: the 5 verified quotes come from only 4 distinct risk factors in the filing (two or more risks share a source heading).
+
+RESULT: 5/5 quotes verified | 1 numbers in AI output: 1 verified, 0 needs review, 0 not in source | structure pass
+
+=== check.py HPQ - 2026-11-02 19:25 ===
+Planted 3 errors in a copy of summary_HPQ_run1.json -> planted_HPQ.json
+  risk 1: corrupted quote (removed the word 'from')
+  risk 2: changed digit (2025 -> 2027)
+  risk 3: inserted number (37%)
+
+Structure: pass
+
+Risk 1: Secular decline in high-margin printing and supplies
+  Quote: NOT FOUND
+         closest passage (similarity 0.99): "decreased demand for printing products and solutions as a result of increased digitization, hybrid work, increasing competition from generic alternatives and customer preferences shifting from traditi"
+         - quote drops 'from'
+
+Risk 2: Tariffs and trade restrictions squeezing margins and cash flow
+  Quote: VERIFIED, paragraph 92, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+  Number '2027' in why_it_matters: not in source
+  Number '2025' in exact_quote: verified
+
+Risk 3: Rising memory and component costs compressing Personal Systems margins
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could a"
+  Number '37%' in why_it_matters: not in source
+
+Risk 4: Concentrated, geopolitically exposed manufacturing and supply chain
+  Quote: VERIFIED, paragraph 91, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+
+Risk 5: Credit rating downgrade raising funding costs and limiting liquidity
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs"
+
+Note: the 4 verified quotes come from only 3 distinct risk factors in the filing (two or more risks share a source heading).
+
+RESULT: 4/5 quotes verified | 3 numbers in AI output: 1 verified, 0 needs review, 2 not in source | structure pass
+
+PLANTED ERRORS CAUGHT: 3/3
+  caught: corrupted quote (removed the word 'from')
+  caught: changed digit (2025 -> 2027)
+  caught: inserted number (37%)
+
+=== check.py HPQ - 2026-11-02 19:25 ===
+Checking summary_HPQ_run1.json against section_HPQ.txt
+Structure: pass
+
+Risk 1: Secular decline in high-margin printing and supplies
+  Quote: VERIFIED, paragraph 4, under risk heading:
+         "If we cannot successfully execute our strategy and continue to develop, manufacture and market innovative prod"
+
+Risk 2: Tariffs and trade restrictions squeezing margins and cash flow
+  Quote: VERIFIED, paragraph 92, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+  Number '2025' in exact_quote: verified
+
+Risk 3: Rising memory and component costs compressing Personal Systems margins
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could a"
+
+Risk 4: Concentrated, geopolitically exposed manufacturing and supply chain
+  Quote: VERIFIED, paragraph 91, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+
+Risk 5: Credit rating downgrade raising funding costs and limiting liquidity
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs"
+
+Note: the 5 verified quotes come from only 4 distinct risk factors in the filing (two or more risks share a source heading).
+
+RESULT: 5/5 quotes verified | 1 numbers in AI output: 1 verified, 0 needs review, 0 not in source | structure pass
+
+=== check.py HPQ - 2026-11-02 19:25 ===
+Planted 3 errors in a copy of summary_HPQ_run1.json -> planted_HPQ.json
+  risk 1: corrupted quote (removed the word 'from')
+  risk 2: changed digit (2025 -> 2027)
+  risk 3: inserted number (37%)
+
+Structure: pass
+
+Risk 1: Secular decline in high-margin printing and supplies
+  Quote: NOT FOUND
+         closest passage (similarity 0.99): "decreased demand for printing products and solutions as a result of increased digitization, hybrid work, increasing competition from generic alternatives and customer preferences shifting from traditi"
+         - quote drops 'from'
+
+Risk 2: Tariffs and trade restrictions squeezing margins and cash flow
+  Quote: VERIFIED, paragraph 92, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+  Number '2027' in why_it_matters: not in source
+  Number '2025' in exact_quote: verified
+
+Risk 3: Rising memory and component costs compressing Personal Systems margins
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could a"
+  Number '37%' in why_it_matters: not in source
+
+Risk 4: Concentrated, geopolitically exposed manufacturing and supply chain
+  Quote: VERIFIED, paragraph 91, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+
+Risk 5: Credit rating downgrade raising funding costs and limiting liquidity
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs"
+
+Note: the 4 verified quotes come from only 3 distinct risk factors in the filing (two or more risks share a source heading).
+
+RESULT: 4/5 quotes verified | 3 numbers in AI output: 1 verified, 0 needs review, 2 not in source | structure pass
+
+PLANTED ERRORS CAUGHT: 3/3
+  caught: corrupted quote (removed the word 'from')
+  caught: changed digit (2025 -> 2027)
+  caught: inserted number (37%)
+
+=== summarize.py HPQ run 2 - 2026-11-02 11:26 ===
+Using cached filing: 47217_0000047217-25-000071.htm
+Filing: HP INC | form 10-K | accession 0000047217-25-000071 | filed 2025-12-10 | period 2025-10-31
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B. Unresolved Staff Comments.'
+Section length: 98,422 characters, 14,559 words, 125 paragraphs, 34 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+Paragraphs split by page breaks, rejoined: 7
+First line: 'The following discussion of risk factors contains forward-looking statements. These risk factors may be important for un'
+Last line:  '...and various governments around the world have enacted, or are in the process of enacting, legislation on these rules.'
+Saved outputs/section_HPQ.txt and outputs/filing_HPQ.json
+LLM call: 17s, input tokens 47,460 (cache read 8,896), output tokens 1,779
+Model returned 5 risks. Saved outputs/summary_HPQ_run2.json. Next: python check.py HPQ
+
+=== summarize.py HPQ run 3 - 2026-11-02 11:26 ===
+Using cached filing: 47217_0000047217-25-000071.htm
+Filing: HP INC | form 10-K | accession 0000047217-25-000071 | filed 2025-12-10 | period 2025-10-31
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B. Unresolved Staff Comments.'
+Section length: 98,422 characters, 14,559 words, 125 paragraphs, 34 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+Paragraphs split by page breaks, rejoined: 7
+First line: 'The following discussion of risk factors contains forward-looking statements. These risk factors may be important for un'
+Last line:  '...and various governments around the world have enacted, or are in the process of enacting, legislation on these rules.'
+Saved outputs/section_HPQ.txt and outputs/filing_HPQ.json
+LLM call: 13s, input tokens 47,460 (cache read 47,458), output tokens 1,485
+Model returned 5 risks. Saved outputs/summary_HPQ_run3.json. Next: python check.py HPQ
+
+=== summarize.py DELL run 1 - 2026-11-02 11:26 ===
+Using cached filing: 1571996_0001571996-26-000008.htm
+Filing: Dell Technologies Inc. | form 10-K | accession 0001571996-26-000008 | filed 2026-03-16 | period 2026-01-30
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B - UNRESOLVED STAFF COMMENTS'
+Section length: 71,695 characters, 10,714 words, 125 paragraphs, 42 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+Paragraphs split by page breaks, rejoined: 0
+First line: 'Our business, operating results, financial condition, and prospects are subject to a variety of significant risks, many '
+Last line:  '...may fluctuate, and changes in cash flows, tax laws, and our stock price could also impact our stock repurchase program.'
+Saved outputs/section_DELL.txt and outputs/filing_DELL.json
+LLM call: 24s, input tokens 40,280 (cache read 10,687), output tokens 2,830
+Model returned 5 risks. Saved outputs/summary_DELL_run1.json. Next: python check.py DELL
+
+=== summarize.py DELL run 2 - 2026-11-02 11:27 ===
+Using cached filing: 1571996_0001571996-26-000008.htm
+Filing: Dell Technologies Inc. | form 10-K | accession 0001571996-26-000008 | filed 2026-03-16 | period 2026-01-30
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B - UNRESOLVED STAFF COMMENTS'
+Section length: 71,695 characters, 10,714 words, 125 paragraphs, 42 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+Paragraphs split by page breaks, rejoined: 0
+First line: 'Our business, operating results, financial condition, and prospects are subject to a variety of significant risks, many '
+Last line:  '...may fluctuate, and changes in cash flows, tax laws, and our stock price could also impact our stock repurchase program.'
+Saved outputs/section_DELL.txt and outputs/filing_DELL.json
+LLM call: 20s, input tokens 40,280 (cache read 40,278), output tokens 2,279
+Model returned 5 risks. Saved outputs/summary_DELL_run2.json. Next: python check.py DELL
+
+=== summarize.py DELL run 3 - 2026-11-02 11:27 ===
+Using cached filing: 1571996_0001571996-26-000008.htm
+Filing: Dell Technologies Inc. | form 10-K | accession 0001571996-26-000008 | filed 2026-03-16 | period 2026-01-30
+Item 1A matches in document: 2 (used the last one)
+Section ends at: 'ITEM 1B - UNRESOLVED STAFF COMMENTS'
+Section length: 71,695 characters, 10,714 words, 125 paragraphs, 42 headings detected
+Page numbers / 'Table of Contents' lines removed: 30
+Paragraphs split by page breaks, rejoined: 0
+First line: 'Our business, operating results, financial condition, and prospects are subject to a variety of significant risks, many '
+Last line:  '...may fluctuate, and changes in cash flows, tax laws, and our stock price could also impact our stock repurchase program.'
+Saved outputs/section_DELL.txt and outputs/filing_DELL.json
+LLM call: 25s, input tokens 40,280 (cache read 40,278), output tokens 2,060
+Model returned 5 risks. Saved outputs/summary_DELL_run3.json. Next: python check.py DELL
+
+=== check.py HPQ - 2026-11-02 11:27 ===
+Checking summary_HPQ_run3.json against section_HPQ.txt
+Structure: pass
+
+Risk 1: Tariffs and trade restrictions squeezing costs and margins
+  Quote: VERIFIED, paragraph 92, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+  Number '2025' in exact_quote: verified
+
+Risk 2: Long-term decline in the high-margin print and ink supplies business
+  Quote: VERIFIED, paragraph 4, under risk heading:
+         "If we cannot successfully execute our strategy and continue to develop, manufacture and market innovative prod"
+
+Risk 3: Rising memory and component costs hurting PC gross margins
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could a"
+
+Risk 4: Credit rating downgrade raising funding costs and limiting liquidity
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs"
+
+Risk 5: Heavy AI investment may not pay off and may cannibalize sales
+  Quote: VERIFIED, paragraph 8, under risk heading:
+         "We expect the proliferation of AI to have a significant impact on our industry and the markets in which we com"
+
+RESULT: 5/5 quotes verified | 1 numbers in AI output: 1 verified, 0 needs review, 0 not in source | structure pass
+
+CONSISTENCY across 3 runs (compared by source risk heading):
+  run1 vs run2: same 4 of 5 risk factors
+  run1 vs run3: same 4 of 5 risk factors
+  run2 vs run3: same 5 of 5 risk factors
+  picked in 3/3 runs: We are heavily dependent on third-party suppliers and supply chain issues have adversely a
+  picked in 3/3 runs: If we cannot successfully execute our strategy and continue to develop, manufacture and ma
+  picked in 3/3 runs: Due to the international nature of our business, geopolitical or economic changes or event
+  picked in 3/3 runs: Failure to maintain our credit ratings could adversely affect our liquidity, capital posit
+  picked in 2/3 runs: We expect the proliferation of AI to have a significant impact on our industry and the mar
+
+=== check.py DELL - 2026-11-02 11:27 ===
+Checking summary_DELL_run3.json against section_DELL.txt
+Structure: pass
+
+Risk 1: AI revenue concentrated in few large customers, straining margins and cash
+  Quote: VERIFIED, paragraph 21, under risk heading:
+         "The nature of the demand for AI solutions may have adverse effects on our operating performance."
+
+Risk 2: Dependence on vendors and concentrated contract manufacturers with minimal inventory
+  Quote: VERIFIED, paragraph 16, under risk heading:
+         "Our relationships with our product and component vendors could harm our business by adversely affecting produc"
+
+Risk 3: Large debt load reduces cash flow and financial flexibility
+  Quote: VERIFIED, paragraph 93, under risk heading:
+         "We have outstanding indebtedness and may incur additional debt in the future, which could adversely affect our"
+  Number '$31.5 billion' in why_it_matters: verified
+  Number '$5.0 billion' in why_it_matters: verified
+  Number '$5.9 billion' in why_it_matters: verified
+  Number '30' in exact_quote: verified
+  Number '2026' in exact_quote: verified
+  Number '$31.5 billion' in exact_quote: verified
+
+Risk 4: Competition in ISG from cloud providers and a structurally weak PC market
+  Quote: VERIFIED, paragraph 11, under risk heading:
+         "The operating results of our business units may be adversely affected if we fail to successfully execute our s"
+
+Risk 5: Controlling shareholders limit minority investor influence and governance protections
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "We are controlled by the MD stockholders, who, separately and together with the SLP stockholders, collectively"
+  Number '91.7%' in why_it_matters: verified
+
+RESULT: 5/5 quotes verified | 7 numbers in AI output: 7 verified, 0 needs review, 0 not in source | structure pass
+
+CONSISTENCY across 3 runs (compared by source risk heading):
+  run1 vs run2: same 5 of 5 risk factors
+  run1 vs run3: same 4 of 5 risk factors
+  run2 vs run3: same 4 of 5 risk factors
+  picked in 3/3 runs: The operating results of our business units may be adversely affected if we fail to succes
+  picked in 3/3 runs: We have outstanding indebtedness and may incur additional debt in the future, which could 
+  picked in 3/3 runs: The nature of the demand for AI solutions may have adverse effects on our operating perfor
+  picked in 3/3 runs: Our relationships with our product and component vendors could harm our business by advers
+  picked in 2/3 runs: Our multi-class common stock structure with different voting rights may adversely affect t
+  picked in 1/3 runs: We are controlled by the MD stockholders, who, separately and together with the SLP stockh
+
+=== check.py DELL - 2026-11-02 11:27 ===
+Planted 3 errors in a copy of summary_DELL_run1.json -> planted_DELL.json
+  risk 1: corrupted quote (changed 'may' to 'could')
+  risk 2: changed digit (30 -> 32)
+  risk 3: inserted number (37%)
+
+Structure: pass
+
+Risk 1: AI revenue concentrated in a few large customers, straining working capital
+  Quote: NOT FOUND
+         closest passage (similarity 0.98): "to date our AI solutions have been purchased primarily by a small number of larger customers and cloud service providers. If we are not successful in continuing to expand sales to a broader base of cu"
+         - quote 'could' vs filing 'may'
+
+Risk 2: Supply shortages and rising component costs with minimal inventory buffer
+  Quote: VERIFIED, paragraph 16, under risk heading:
+         "Our relationships with our product and component vendors could harm our business by adversely affecting produc"
+  Number '32' in why_it_matters: not in source
+
+Risk 3: Large debt load limits financial flexibility
+  Quote: VERIFIED, paragraph 93, under risk heading:
+         "We have outstanding indebtedness and may incur additional debt in the future, which could adversely affect our"
+  Number '37%' in why_it_matters: not in source
+  Number '30' in exact_quote: verified
+  Number '2026' in exact_quote: verified
+  Number '$31.5 billion' in exact_quote: verified
+
+Risk 4: Structural decline and longer replacement cycles in the PC market
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "The operating results of our business units may be adversely affected if we fail to successfully execute our s"
+
+Risk 5: Founder and Silver Lake control nearly all voting power
+  Quote: VERIFIED, paragraph 96, under risk heading:
+         "Our multi-class common stock structure with different voting rights may adversely affect the trading price of "
+  Number '91.7%' in exact_quote: verified
+  Number '9' in exact_quote: verified
+  Number '2026' in exact_quote: verified
+
+RESULT: 4/5 quotes verified | 8 numbers in AI output: 6 verified, 0 needs review, 2 not in source | structure pass
+
+PLANTED ERRORS CAUGHT: 3/3
+  caught: corrupted quote (changed 'may' to 'could')
+  caught: changed digit (30 -> 32)
+  caught: inserted number (37%)
+
+=== check.py HPQ - 2026-11-02 19:29 ===
+Checking summary_HPQ_run1.json against section_HPQ.txt
+Structure: pass
+
+Risk 1: Secular decline in high-margin printing and supplies
+  Quote: VERIFIED, paragraph 4, under risk heading:
+         "If we cannot successfully execute our strategy and continue to develop, manufacture and market innovative prod"
+
+Risk 2: Tariffs and trade restrictions squeezing margins and cash flow
+  Quote: VERIFIED, paragraph 92, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+  Number '2025' in exact_quote: verified
+
+Risk 3: Rising memory and component costs compressing Personal Systems margins
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could a"
+
+Risk 4: Concentrated, geopolitically exposed manufacturing and supply chain
+  Quote: VERIFIED, paragraph 91, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+
+Risk 5: Credit rating downgrade raising funding costs and limiting liquidity
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs"
+
+Note: the 5 verified quotes come from only 4 distinct risk factors in the filing (two or more risks share a source heading).
+
+RESULT: 5/5 quotes verified | 1 numbers in AI output: 1 verified, 0 needs review, 0 not in source | structure pass
+
+CONSISTENCY across 3 runs (compared by source risk heading):
+  run1 vs run2: same 4 of 5 risk factors
+  run1 vs run3: same 4 of 5 risk factors
+  run2 vs run3: same 5 of 5 risk factors
+  picked in 3/3 runs: Failure to maintain our credit ratings could adversely affect our liquidity, capital posit
+  picked in 3/3 runs: Due to the international nature of our business, geopolitical or economic changes or event
+  picked in 3/3 runs: If we cannot successfully execute our strategy and continue to develop, manufacture and ma
+  picked in 3/3 runs: We are heavily dependent on third-party suppliers and supply chain issues have adversely a
+  picked in 2/3 runs: We expect the proliferation of AI to have a significant impact on our industry and the mar
+
+=== check.py HPQ - 2026-11-02 19:29 ===
+Checking summary_HPQ_run2.json against section_HPQ.txt
+Structure: pass
+
+Risk 1: Tariffs and trade restrictions squeezing costs and margins
+  Quote: VERIFIED, paragraph 92, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+  Number '65%' in why_it_matters: verified
+  Number '2025' in exact_quote: verified
+
+Risk 2: Long-term decline in printing demand and loss of supplies profits
+  Quote: VERIFIED, paragraph 4, under risk heading:
+         "If we cannot successfully execute our strategy and continue to develop, manufacture and market innovative prod"
+
+Risk 3: Rising memory and component costs cutting Personal Systems margins
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could a"
+
+Risk 4: AI product shift may not pay off and may cannibalize sales
+  Quote: VERIFIED, paragraph 8, under risk heading:
+         "We expect the proliferation of AI to have a significant impact on our industry and the markets in which we com"
+
+Risk 5: Credit rating downgrade raising borrowing costs and limiting funding access
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs"
+
+RESULT: 5/5 quotes verified | 2 numbers in AI output: 2 verified, 0 needs review, 0 not in source | structure pass
+
+CONSISTENCY across 3 runs (compared by source risk heading):
+  run1 vs run2: same 4 of 5 risk factors
+  run1 vs run3: same 4 of 5 risk factors
+  run2 vs run3: same 5 of 5 risk factors
+  picked in 3/3 runs: If we cannot successfully execute our strategy and continue to develop, manufacture and ma
+  picked in 3/3 runs: We are heavily dependent on third-party suppliers and supply chain issues have adversely a
+  picked in 3/3 runs: Failure to maintain our credit ratings could adversely affect our liquidity, capital posit
+  picked in 3/3 runs: Due to the international nature of our business, geopolitical or economic changes or event
+  picked in 2/3 runs: We expect the proliferation of AI to have a significant impact on our industry and the mar
+
+=== check.py HPQ - 2026-11-02 19:29 ===
+Checking summary_HPQ_run3.json against section_HPQ.txt
+Structure: pass
+
+Risk 1: Tariffs and trade restrictions squeezing costs and margins
+  Quote: VERIFIED, paragraph 92, under risk heading:
+         "Due to the international nature of our business, geopolitical or economic changes or events, uncertainty or ot"
+  Number '2025' in exact_quote: verified
+
+Risk 2: Long-term decline in the high-margin print and ink supplies business
+  Quote: VERIFIED, paragraph 4, under risk heading:
+         "If we cannot successfully execute our strategy and continue to develop, manufacture and market innovative prod"
+
+Risk 3: Rising memory and component costs hurting PC gross margins
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "We are heavily dependent on third-party suppliers and supply chain issues have adversely affected, and could a"
+
+Risk 4: Credit rating downgrade raising funding costs and limiting liquidity
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "Failure to maintain our credit ratings could adversely affect our liquidity, capital position, borrowing costs"
+
+Risk 5: Heavy AI investment may not pay off and may cannibalize sales
+  Quote: VERIFIED, paragraph 8, under risk heading:
+         "We expect the proliferation of AI to have a significant impact on our industry and the markets in which we com"
+
+RESULT: 5/5 quotes verified | 1 numbers in AI output: 1 verified, 0 needs review, 0 not in source | structure pass
+
+CONSISTENCY across 3 runs (compared by source risk heading):
+  run1 vs run2: same 4 of 5 risk factors
+  run1 vs run3: same 4 of 5 risk factors
+  run2 vs run3: same 5 of 5 risk factors
+  picked in 3/3 runs: Failure to maintain our credit ratings could adversely affect our liquidity, capital posit
+  picked in 3/3 runs: We are heavily dependent on third-party suppliers and supply chain issues have adversely a
+  picked in 3/3 runs: If we cannot successfully execute our strategy and continue to develop, manufacture and ma
+  picked in 3/3 runs: Due to the international nature of our business, geopolitical or economic changes or event
+  picked in 2/3 runs: We expect the proliferation of AI to have a significant impact on our industry and the mar
+
+=== check.py DELL - 2026-11-02 19:29 ===
+Checking summary_DELL_run1.json against section_DELL.txt
+Structure: pass
+
+Risk 1: AI revenue concentrated in a few large customers, straining working capital
+  Quote: VERIFIED, paragraph 21, under risk heading:
+         "The nature of the demand for AI solutions may have adverse effects on our operating performance."
+
+Risk 2: Supply shortages and rising component costs with minimal inventory buffer
+  Quote: VERIFIED, paragraph 16, under risk heading:
+         "Our relationships with our product and component vendors could harm our business by adversely affecting produc"
+
+Risk 3: Large debt load limits financial flexibility
+  Quote: VERIFIED, paragraph 93, under risk heading:
+         "We have outstanding indebtedness and may incur additional debt in the future, which could adversely affect our"
+  Number '30' in exact_quote: verified
+  Number '2026' in exact_quote: verified
+  Number '$31.5 billion' in exact_quote: verified
+
+Risk 4: Structural decline and longer replacement cycles in the PC market
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "The operating results of our business units may be adversely affected if we fail to successfully execute our s"
+
+Risk 5: Founder and Silver Lake control nearly all voting power
+  Quote: VERIFIED, paragraph 96, under risk heading:
+         "Our multi-class common stock structure with different voting rights may adversely affect the trading price of "
+  Number '91.7%' in exact_quote: verified
+  Number '9' in exact_quote: verified
+  Number '2026' in exact_quote: verified
+
+RESULT: 5/5 quotes verified | 6 numbers in AI output: 6 verified, 0 needs review, 0 not in source | structure pass
+
+CONSISTENCY across 3 runs (compared by source risk heading):
+  run1 vs run2: same 5 of 5 risk factors
+  run1 vs run3: same 4 of 5 risk factors
+  run2 vs run3: same 4 of 5 risk factors
+  picked in 3/3 runs: We have outstanding indebtedness and may incur additional debt in the future, which could 
+  picked in 3/3 runs: Our relationships with our product and component vendors could harm our business by advers
+  picked in 3/3 runs: The operating results of our business units may be adversely affected if we fail to succes
+  picked in 3/3 runs: The nature of the demand for AI solutions may have adverse effects on our operating perfor
+  picked in 2/3 runs: Our multi-class common stock structure with different voting rights may adversely affect t
+  picked in 1/3 runs: We are controlled by the MD stockholders, who, separately and together with the SLP stockh
+
+=== check.py DELL - 2026-11-02 19:29 ===
+Checking summary_DELL_run2.json against section_DELL.txt
+Structure: pass
+
+Risk 1: Concentrated, lumpy AI demand strains margins, working capital and credit
+  Quote: VERIFIED, paragraph 21, under risk heading:
+         "The nature of the demand for AI solutions may have adverse effects on our operating performance."
+
+Risk 2: Supply chain shortages, component costs and concentrated contract manufacturing
+  Quote: VERIFIED, paragraph 16, under risk heading:
+         "Our relationships with our product and component vendors could harm our business by adversely affecting produc"
+
+Risk 3: Large debt load and ability to add more debt
+  Quote: VERIFIED, paragraph 93, under risk heading:
+         "We have outstanding indebtedness and may incur additional debt in the future, which could adversely affect our"
+  Number '30' in exact_quote: verified
+  Number '2026' in exact_quote: verified
+  Number '$31.5 billion' in exact_quote: verified
+  Number '$5.0 billion' in exact_quote: verified
+
+Risk 4: Structural PC market pressure and competition in CSG and ISG
+  Quote: VERIFIED, paragraph 12, under risk heading:
+         "The operating results of our business units may be adversely affected if we fail to successfully execute our s"
+
+Risk 5: Controlling shareholders and multi-class voting limit minority holder influence
+  Quote: VERIFIED, paragraph 96, under risk heading:
+         "Our multi-class common stock structure with different voting rights may adversely affect the trading price of "
+  Number '91.7%' in exact_quote: verified
+  Number '9' in exact_quote: verified
+  Number '2026' in exact_quote: verified
+
+RESULT: 5/5 quotes verified | 7 numbers in AI output: 7 verified, 0 needs review, 0 not in source | structure pass
+
+CONSISTENCY across 3 runs (compared by source risk heading):
+  run1 vs run2: same 5 of 5 risk factors
+  run1 vs run3: same 4 of 5 risk factors
+  run2 vs run3: same 4 of 5 risk factors
+  picked in 3/3 runs: The operating results of our business units may be adversely affected if we fail to succes
+  picked in 3/3 runs: The nature of the demand for AI solutions may have adverse effects on our operating perfor
+  picked in 3/3 runs: Our relationships with our product and component vendors could harm our business by advers
+  picked in 3/3 runs: We have outstanding indebtedness and may incur additional debt in the future, which could 
+  picked in 2/3 runs: Our multi-class common stock structure with different voting rights may adversely affect t
+  picked in 1/3 runs: We are controlled by the MD stockholders, who, separately and together with the SLP stockh
+
+=== check.py DELL - 2026-11-02 19:29 ===
+Checking summary_DELL_run3.json against section_DELL.txt
+Structure: pass
+
+Risk 1: AI revenue concentrated in few large customers, straining margins and cash
+  Quote: VERIFIED, paragraph 21, under risk heading:
+         "The nature of the demand for AI solutions may have adverse effects on our operating performance."
+
+Risk 2: Dependence on vendors and concentrated contract manufacturers with minimal inventory
+  Quote: VERIFIED, paragraph 16, under risk heading:
+         "Our relationships with our product and component vendors could harm our business by adversely affecting produc"
+
+Risk 3: Large debt load reduces cash flow and financial flexibility
+  Quote: VERIFIED, paragraph 93, under risk heading:
+         "We have outstanding indebtedness and may incur additional debt in the future, which could adversely affect our"
+  Number '$31.5 billion' in why_it_matters: verified
+  Number '$5.0 billion' in why_it_matters: verified
+  Number '$5.9 billion' in why_it_matters: verified
+  Number '30' in exact_quote: verified
+  Number '2026' in exact_quote: verified
+  Number '$31.5 billion' in exact_quote: verified
+
+Risk 4: Competition in ISG from cloud providers and a structurally weak PC market
+  Quote: VERIFIED, paragraph 11, under risk heading:
+         "The operating results of our business units may be adversely affected if we fail to successfully execute our s"
+
+Risk 5: Controlling shareholders limit minority investor influence and governance protections
+  Quote: VERIFIED, paragraph 104, under risk heading:
+         "We are controlled by the MD stockholders, who, separately and together with the SLP stockholders, collectively"
+  Number '91.7%' in why_it_matters: verified
+
+RESULT: 5/5 quotes verified | 7 numbers in AI output: 7 verified, 0 needs review, 0 not in source | structure pass
+
+CONSISTENCY across 3 runs (compared by source risk heading):
+  run1 vs run2: same 5 of 5 risk factors
+  run1 vs run3: same 4 of 5 risk factors
+  run2 vs run3: same 4 of 5 risk factors
+  picked in 3/3 runs: The nature of the demand for AI solutions may have adverse effects on our operating perfor
+  picked in 3/3 runs: Our relationships with our product and component vendors could harm our business by advers
+  picked in 3/3 runs: We have outstanding indebtedness and may incur additional debt in the future, which could 
+  picked in 3/3 runs: The operating results of our business units may be adversely affected if we fail to succes
+  picked in 2/3 runs: Our multi-class common stock structure with different voting rights may adversely affect t
+  picked in 1/3 runs: We are controlled by the MD stockholders, who, separately and together with the SLP stockh
+

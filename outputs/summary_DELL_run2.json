@@ -1,0 +1,44 @@
+{
+  "risks": [
+    {
+      "rank": 1,
+      "title": "Concentrated, lumpy AI demand strains margins, working capital and credit",
+      "why_it_matters": "A small number of large customers and cloud service providers buy most AI solutions, so orders are lumpy, prices are under pressure and customers may get longer payment terms. That puts gross margins, cash flow and receivables collection at risk, and leaves Dell exposed to excess and obsolete inventory.",
+      "exact_quote": "Larger orders may also require greater commitments of working capital, such as for purchases of key components, which could adversely affect our cash flow and expose us to the risk of holding excess and obsolete inventory due to delays or cancellations."
+    },
+    {
+      "rank": 2,
+      "title": "Supply chain shortages, component costs and concentrated contract manufacturing",
+      "why_it_matters": "Dell buys all components from third parties, uses a few contract manufacturers mainly in Asia and keeps minimal inventory. Shortages, tariffs or rising component prices could therefore cut both revenue and margins, and the risk is greater while AI demand is surging.",
+      "exact_quote": "Because we generally maintain minimal levels of component and product inventories, a disruption in component or product availability could harm our ability to fill customer orders on a timely basis and at an acceptable price."
+    },
+    {
+      "rank": 3,
+      "title": "Large debt load and ability to add more debt",
+      "why_it_matters": "Interest and debt service use a substantial portion of operating cash flow. The debt terms generally do not restrict additional unsecured borrowing, which matters directly to lenders' recovery prospects and to how much flexibility shareholders have.",
+      "exact_quote": "As of January 30, 2026, we and our subsidiaries had approximately $31.5 billion of indebtedness. As of the same date, we and our subsidiaries may incur up to $5.0 billion of short-term indebtedness under our commercial paper program"
+    },
+    {
+      "rank": 4,
+      "title": "Structural PC market pressure and competition in CSG and ISG",
+      "why_it_matters": "CSG revenue absorbs overhead costs and provides for scaled procurement, so weaker PC demand from longer replacement cycles hurts profits across the company. At the same time, ISG faces Infrastructure-as-a-Service providers and a possible move by customers to public cloud.",
+      "exact_quote": "CSG faces risks and uncertainties from fundamental changes in the personal computer market, including a decline in worldwide revenues for notebooks, desktops, and workstations, and lower shipment forecasts for these products due to a general lengthening of the replacement cycle."
+    },
+    {
+      "rank": 5,
+      "title": "Controlling shareholders and multi-class voting limit minority holder influence",
+      "why_it_matters": "The MD and SLP stockholders control board elections, mergers and other major decisions, and Dell can use controlled-company exemptions from NYSE governance rules. This can lower the value of Class C shares and lead to decisions that favor insiders over other investors.",
+      "exact_quote": "Michael Dell and the Susan Lieberman Dell Separate Property Trust (the \"MD stockholders\") and certain investment funds affiliated with Silver Lake Partners (the \"SLP stockholders\") collectively held common stock representing approximately 91.7% of the total voting power of our outstanding common stock as of March 9, 2026."
+    }
+  ],
+  "_meta": {
+    "ticker": "DELL",
+    "company": "Dell Technologies Inc.",
+    "form": "10-K",
+    "accession": "0001571996-26-000008",
+    "filing_date": "2026-03-16",
+    "report_date": "2026-01-30",
+    "primary_document": "dell-20260130.htm",
+    "run": 2
+  }
+}

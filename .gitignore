@@ -1,0 +1,12 @@
+# Raw filings downloaded from EDGAR (re-fetchable, large)
+cache/
+
+# Never commit secrets
+.env
+
+__pycache__/
+*.pyc
+.venv/
+
+# macOS
+.DS_Store
