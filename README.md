@@ -1,152 +1,62 @@
 # filing-summarizer
 
-An LLM-powered pipeline that summarizes the top 5 risks in a company's 10-K, then **verifies every quote and number against the SEC filing with code**, treating the AI's output as untrusted until it is proven.
+*An AI summary of 10-K risk factors, checked line by line against the filing · 30/30 quotes and 24/24 numbers verified, 6/6 planted errors caught · Python, Claude Opus, SEC EDGAR, BeautifulSoup*
 
----
+## Why I built this
+In every finance role I've had, part of my job was making sure numbers matched their source before anyone relied on them: transaction reconciliation at Tata Capital, data validation at Acer. When I started using AI for analysis, I saw the same risk in a new form: in 2025, Deloitte Australia partially refunded a A$440,000 government report that contained a fabricated judicial quote and nonexistent references produced with AI ([TechSpot](https://www.techspot.com/news/109758-deloitte-admits-ai-hallucinated-quotes-government-report-offers.html)). So I built this to treat AI output like an unreconciled record: nothing gets used until code confirms it against the filing.
 
-## Situation
+## The question and who it's for
+**Can an AI summary of a 10-K's risk factors be trusted, and can code prove it?**
+For: equity and credit analysts deciding whether an AI-written risk summary is safe to rely on.
 
-Equity and credit analysts spend hours reading the Risk Factors section of 10-K filings, often 10,000-15,000 words per company. An LLM can summarize that in seconds, but it can also paraphrase a quote or invent a number. When the summary feeds an investment or credit decision, a single fabricated figure makes the whole output unusable, and a quote that *looks* right is the hardest error to spot by eye.
+## The answer
+**Across 6 runs on HP and Dell, all 30 quotes and 24 numbers the AI produced matched the filing, and my checker caught all 6 errors I planted, including one-word changes that still scored 98-99% similar.**
 
-This isn't hypothetical. In 2025, Deloitte Australia partially refunded a A$440,000 report to the Australian government after an academic found it contained a fabricated quote attributed to a federal judge and references to works that don't exist, produced with a GPT-4o-based tool ([TechSpot](https://www.techspot.com/news/109758-deloitte-admits-ai-hallucinated-quotes-government-report-offers.html), [OECD.AI incident record](https://oecd.ai/en/incidents/2025-10-05-be45)).
+![Planted misquotes score 0.98-0.99 similarity, above common fuzzy-matching thresholds; exact matching caught both](docs/answer.png)
 
-**Why I built this.** In every finance role I've had, part of my job was making sure numbers matched their source before anyone relied on them: transaction reconciliation at Tata Capital, data validation at Acer. AI changes how fast analysis happens, not that rule. This project treats AI output like an unreconciled record: nothing gets used until code confirms it against the filing.
+## How I set it up
+1. **Data** — The Item 1A Risk Factors section from the latest original 10-K of HP (FY2025) and Dell (FY2026) on SEC EDGAR, pinned by accession number.
+2. **Cleaning** — I used the *last* "Item 1A" match to skip the table of contents, removed the page numbers repeated at every page break, and rejoined sentences a page break had split.
+3. **Model** — Claude Opus picks the 5 most important risks as JSON, with a word-for-word quote for each. Every call runs isolated: no tools, no access to earlier runs, model pinned.
+4. **Output** — A top-5 risk summary per run, 3 runs per company.
+5. **Validation** — `check.py` confirms every quote appears exactly in the filing and every number the AI wrote exists there, then I planted a misquote, a changed digit and an invented number to prove it catches them.
 
-## Task
+## How I used it
+I read the verified top 5 for HP and Dell side by side. Both companies' first three picks were the same in every run. Supplier dependence ranks near the top for both, but HP's exposure is print supplies and memory costs, while Dell's is AI customer concentration and $31.5 billion of debt, the risk a credit analyst would look at first. These verified lists are the starting point for my next project, a deeper HP vs. Dell comparison.
 
-Build a small pipeline that pulls Item 1A (Risk Factors) from a real 10-K on SEC EDGAR, asks an LLM for the 5 most important risks as structured JSON with a supporting quote for each, and **proves** the output is faithful to the filing.
+## Key decisions and why
+- I chose **exact quote matching** over **fuzzy matching** because one wrong word ("could" for "may") still scored 0.98 similar; a fuzzy rule would have passed the exact error I was trying to catch.
+- I chose **Risk Factors** over **MD&A** because this project tests whether the AI quotes honestly, and Risk Factors is long, quotable prose; MD&A is mostly numbers, which my later projects cover.
+- I chose **two companies** over **one** because HP and Dell format their filings differently. Dell bolds every heading the same way, which broke my first rule for finding risk headings and forced a better one.
 
-Success criteria, set before building:
-- Every quote appears **word for word** in the filing.
-- Every number the AI writes, including in its own explanations, exists in the filing.
-- Deliberately planted errors are caught, so a perfect score means something.
-- Results are reproducible: pinned filings, pinned model, one command to rerun everything.
+## What worked, what didn't, and why
+- ✅ 30/30 quotes matched word for word and 24/24 numbers were found in the filing, across 6 runs.
+- ✅ The checker caught 6/6 planted errors, and both companies' top 3 risks were identical in every run.
+- ❌ My first AI calls weren't isolated: in principle a run could read earlier outputs, which made "3 independent runs" untrue. I isolated every call, and reran all results instead of keeping them.
+- ⚠️ The checker confirms a number *exists* in the filing, not that it's used with the right meaning. I checked the 6 numbers the AI wrote in its own words by hand; all were right, but that step isn't automated yet. Details and other limits: [docs/details.md](docs/details.md).
 
-## Action
+## What I'd do next
+- Automate the context check: compare the words around each number in the AI's text with the words around it in the filing.
+- Run the same checks across more companies and both Claude Opus and Sonnet, to measure how often each model misquotes rather than showing that one model didn't.
 
-### 1. Extracted the right text, and checked it
-- Fetched each company's latest **original** 10-K from SEC EDGAR (never a 10-K/A amendment) and pinned it by accession number.
-- Avoided the table-of-contents trap by using the *last* "Item 1A" match, ending at the next Item (1B, 1C or 2).
-- Cleaned EDGAR's HTML: removed page numbers and "Table of Contents" links repeated at every page break, rejoined paragraphs split mid-sentence, and normalized invisible characters, curly quotes and dashes with one shared `normalize()` function.
-- Detected risk headings while parsing the HTML, before formatting is lost, so each quote can be traced to the risk factor it came from.
-
-### 2. Called the LLM in isolation
-- One function, `ask_llm(prompt)`, calls `claude-opus-5-5` through Claude Code's non-interactive mode (`claude -p`, prompt via stdin) on a Pro login, with no API key and no extra cost. Swapping providers later changes only that function.
-- Each call is isolated: no tools, no MCP servers, no session persistence, an empty working directory. The full reply envelope (model used, 1 turn, token usage) is saved as evidence.
-- The prompt requires quotes copied word for word, no ellipses, original capitalization, and numbers copied exactly as written.
-
-### 3. Verified the output with code
-| Check | Rule |
-|---|---|
-| Structure | Valid JSON, exactly 5 risks, all fields present, ranks 1-5 |
-| Quotes | **Exact, case-sensitive** match after normalization. On failure: the closest passage and the exact word differences |
-| Numbers | Every number in every field, including the model's own explanation. Outcomes: *verified*, *needs review* (same value written differently), *not in source* |
-| Location | Each verified quote mapped to its individual risk factor in the filing |
-| Consistency | Runs compared by source risk factor, with each run's distinct risk factors as the denominator |
-| Planted errors | A copy of the output gets a corrupted quote, a changed digit and an invented number; all three must be caught |
-
-### 4. Key decisions
-Every decision and its reasoning is logged in [DECISIONS.md](DECISIONS.md). The ones that shaped the project:
-- **Exact over fuzzy matching.** Fuzzy matching accepts paraphrase, which is exactly what this project exists to catch.
-- **Risk Factors over MD&A.** The project tests quote fidelity; Risk Factors is long, quotable prose.
-- **Two companies.** HP and Dell format their filings differently, which proves the extractor isn't tuned to one document.
-- **Heading levels by structure, not styling.** HP styles category headings differently from individual risks; Dell bolds everything identically. The rule that works for both: a category heading is followed directly by another heading.
-- **Opus over Sonnet.** Copying quotes is easy for either model; the hard part is judging which 5 of 31-40 risk factors matter most.
-
-### 5. Corrected course when the method was wrong
-A review of the first results found two flaws: the first LLM calls weren't isolated (Claude Code's tools were active, so in principle a run could have read earlier outputs), and the consistency metric used 5 as the denominator even when a run used two slots on one risk factor. Both were fixed, and **every result was rerun** rather than kept.
-
-## Result
-
-Two companies, three isolated runs each, 6 LLM calls. Reproduce with `python run_all.py`; full log in `outputs/run_output.txt`.
-
-| | HPQ | DELL | Total |
-|---|---|---|---|
-| Quotes verified word for word | 15/15 | 15/15 | **30/30** |
-| Numbers in AI output, found in the section | 4/4 | 20/20 | **24/24** |
-| ...of which the model wrote itself (outside quotes) | 1 | 5 | **6/6** |
-| Planted errors caught | 3/3 | 3/3 | **6/6** |
-| Distinct risk factors per run (out of 5 slots) | 5, 5, 5 | 5, 5, 5 | |
-| Risk factors shared between run pairs | 4, 5, 4 | 4, 4, 4 | |
-| Distinct risk factors across all 3 runs | 6 | 6 | |
-
-**What the results show**
-- **Exact matching was necessary.** Deleting one word from a 35-word quote scored **0.99** similarity; swapping "may" for "could" scored **0.98**. Any fuzzy threshold, even 95%, would have passed both planted errors.
-- **The top 3 is stable.** For both companies, every run picked the same three risk factors for ranks 1-3. HP: print supplies decline, tariffs, memory and component costs. Dell: AI demand concentration, vendor dependence, debt. All variation between runs sits at ranks 4-5.
-- **The model's own numbers were right in context.** check.py only confirms a number appears in the section, so I checked the 6 numbers the model wrote in its own words by hand: HP's 65% and Dell's 45% (revenue from outside the US) and Dell's $31.5 billion debt, $5.0 billion commercial paper and $5.9 billion revolver capacity all carry the meaning the filing gives them.
-- **Isolation mattered.** Before the fix, Claude Code's own setup inflated each HP call to ~47k input tokens; isolated calls use ~31k.
-
-**Data quality**
-
-| Check | HPQ | DELL |
-|---|---|---|
-| Filing (original 10-K, pinned accession) | FY2025, 0000047217-25-000071 | FY2026, 0001571996-26-000008 |
-| "Item 1A" matches (first = table of contents; last used) | 2 | 2 |
-| Section ends at | Item 1B | Item 1B |
-| Section length | 14,559 words | 10,714 words |
-| Page numbers / "Table of Contents" lines removed | 30 | 30 |
-| Paragraphs split by page breaks, rejoined | 7 | 0 |
-| Headings (categories + individual risks) | 3 + 31 | 2 + 40 |
-| Input tokens per LLM call | ~30,750 | ~23,570 |
-
-## Limitations
-
-- **Verified against the extracted section, not the whole filing.** A number or quote from elsewhere in the 10-K would show as "not in source".
-- **Numbers are checked without context.** The checker can't tell whether a number is attached to the right metric; the context check above was manual.
-- **Reasoning is not verified.** Interpretations in `why_it_matters` (e.g. Dell's "loose covenants") are the model's judgment. Only quotes and numbers are checked.
-- **Numbers written as words** ("five") are not extracted.
-- **Small sample:** two filings, six runs, one model. Enough to show the method works, not to measure an error rate or compare models.
-- **Ranking is not evaluated.** Whether these are truly the 5 most important risks is a judgment the checker cannot make.
-
-## Related work
-
-- **Why summaries help:** Kim, Muhn and Nikolaev, [*Bloated Disclosures*](https://arxiv.org/html/2306.10224v1) (2023). GPT summaries of MD&As and earnings calls were less than half the original length, and their sentiment explained stock price reactions better than the full documents. The summaries' accuracy was not verified.
-- **Why they can't be trusted unchecked:** Islam et al., [*FinanceBench*](https://www.alphaxiv.org/abs/2311.11944v1) (2023). GPT-4-Turbo with retrieval answered incorrectly or refused 81% of sampled questions about public-company filings. Grieser et al., [*LLMs and Systematic Measurement Error*](https://www.cxoadvisory.com/investing-expertise/distortion-bias-in-llm-summaries-of-text/) (2026), study what LLMs omit from and inject into summaries of 10-K Item 1A risk disclosures, the same section used here.
-- **Closest pipeline:** Dolphin et al., [*Taxonomy-Aligned Risk Extraction from 10-K Filings*](https://arxiv.org/pdf/2601.15247) (2026), extract Item 1A risks with a supporting quote each, using an LLM judge to rate whether a quote fits its category. They don't check that quotes appear word for word in the filing, which is the gap this project addresses at small scale.
-- **Detecting hallucinations with models instead of code:** Kumar, Sarmah and Pasquali, [*FinReflectKG HalluBench*](https://arxiv.org/abs/2603.20252) (2026). The best detectors for 10-K question answering reach F1 of 0.82-0.86 but degrade sharply on noisy input. Exact string matching has no such failure mode for quotes, though it can't judge meaning.
-
-## What AI did vs. what I did
-
-**What I did**
-- **Set the requirement:** an AI risk summary is unusable for an investment or credit decision unless every quote and number can be traced back to the SEC filing.
-- **Made the scope decisions:** chose HP and Dell as the test cases, picked Item 1A over MD&A, required exact rather than fuzzy matching, and chose Claude Opus over Sonnet for the hard part, ranking which risks matter most.
-- **Challenged the plan before building:** I brought in outside feedback and kept what held up, like testing a second company and extending my planted-error test to number errors, while rejecting suggestions that didn't fit.
-- **Checked the results instead of trusting them:** I ran the pipeline, read the outputs and audited the methodology. I caught that my early LLM calls weren't isolated and that the consistency metric used the wrong denominator. I fixed both and reran every result rather than keep numbers I couldn't defend.
-
-**What Claude did**
-- Proposed much of the technical design, including the verification approach and the normalization rules, which I then vetted, changed or rejected.
-- Wrote the code and 19 unit tests, including a synthetic 10-K packed with known traps to see whether the pipeline would break.
-- Reviewed the outputs and drafted the initial documentation, which I then edited into its final version.
+## How I used AI
+I set the requirement and success criteria, made the design decisions, ran and reviewed every result, and caught that the first AI calls weren't isolated and that the consistency metric used the wrong denominator; Claude wrote the code and tests to my specifications, proposed technical approaches I accepted or rejected, and helped draft this README.
 
 ## Run it
-
-Requirements: Python 3.10+, and [Claude Code](https://claude.com/claude-code) installed and logged in.
-
 ```bash
+git clone https://github.com/pooja003-cloud/filing-summarizer && cd filing-summarizer
 pip install -r requirements.txt
-python -m unittest discover -s tests -v       # 19 tests, no network needed
-
-export SEC_USER_AGENT="Your Name your.email@example.com"   # required by SEC EDGAR
-python summarize.py HPQ --extract-only        # check the extraction first (no LLM call)
-python run_all.py --pause 20                  # everything: 6 LLM runs, all checks, planted errors
+python run_all.py --pause 20
 ```
+Needs [Claude Code](https://claude.com/claude-code) logged in (no API key; it uses a Claude Pro login) and `SEC_USER_AGENT="Your Name your@email.com"` set for SEC EDGAR.
 
-Or step by step: `python summarize.py HPQ --run 1`, then `python check.py HPQ --run 1` and `python check.py HPQ --plant`.
-
-The script refuses to run if `ANTHROPIC_API_KEY` is set, since that would bill the API instead of the Pro plan.
-
-## Project structure
-
+## What's inside
 ```
-filing-summarizer/
-├── summarize.py          fetch → extract Item 1A → ask the LLM (isolated) → save
-├── check.py              verify quotes and numbers, planted errors, consistency
-├── run_all.py            reproduce all results into one fresh log
-├── textnorm.py           the shared normalize() used by both scripts
-├── tests/                19 unit tests and a fake 10-K containing the known traps
-├── outputs/              sections, summaries, reply envelopes, check results, run_output.txt
-├── DECISIONS.md          every design decision and the reasoning behind it
-└── requirements.txt      requests==2.34.2, beautifulsoup4==4.15.0
+summarize.py      fetch the 10-K → extract Item 1A → ask Claude (isolated) → save
+check.py          verify quotes and numbers, planted errors, run-to-run consistency
+run_all.py        reproduce every result into one fresh log (outputs/run_output.txt)
+textnorm.py       one shared text-cleaning function for the filing and the AI's quotes
+tests/            19 unit tests and a fake 10-K packed with the known traps
+DECISIONS.md      every design decision and the reasoning behind it
+docs/details.md   full results, data quality, limitations and related research
 ```
-
-**Skills:** LLM integration · structured JSON output · prompt constraints · isolating LLM calls for reproducibility · keeping secrets out of code · verifying AI output with code · test-driven data cleaning (SEC EDGAR HTML)
